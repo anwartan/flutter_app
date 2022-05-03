@@ -1,4 +1,6 @@
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/watch.dart';
+import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {
@@ -44,4 +46,10 @@ class MovieDetail extends Equatable {
         voteAverage,
         voteCount,
       ];
+  Watch copyToWatch() => Watch.watchlist(
+      refId: id,
+      overview: overview,
+      posterPath: posterPath,
+      title: title,
+      type: Type.MOVIE);
 }

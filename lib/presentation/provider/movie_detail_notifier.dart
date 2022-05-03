@@ -1,11 +1,12 @@
+import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
+import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -80,7 +81,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   String get watchlistMessage => _watchlistMessage;
 
   Future<void> addWatchlist(MovieDetail movie) async {
-    final result = await saveWatchlist.execute(movie);
+    final result = await saveWatchlist.execute(movie.copyToWatch());
 
     await result.fold(
       (failure) async {
@@ -95,7 +96,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromWatchlist(MovieDetail movie) async {
-    final result = await removeWatchlist.execute(movie);
+    final result = await removeWatchlist.execute(movie.copyToWatch());
 
     await result.fold(
       (failure) async {
@@ -110,7 +111,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
+    final result = await getWatchListStatus.execute(id, Type.MOVIE);
     _isAddedtoWatchlist = result;
     notifyListeners();
   }

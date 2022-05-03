@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/watch_table.dart';
+import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -33,29 +34,31 @@ class DatabaseHelper {
   void _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE  $_tblWatchlist (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        refId INTEGER,
         title TEXT,
         overview TEXT,
-        posterPath TEXT
+        posterPath TEXT,
+        type TINYINT
       );
     ''');
   }
 
-  Future<int> insertWatchlist(MovieTable movie) async {
+  Future<int> insertWatchlist(WatchTable watch) async {
     final db = await database;
-    return await db!.insert(_tblWatchlist, movie.toJson());
+    return await db!.insert(_tblWatchlist, watch.toJson());
   }
 
-  Future<int> removeWatchlist(MovieTable movie) async {
+  Future<int> removeWatchlist(WatchTable watch) async {
     final db = await database;
     return await db!.delete(
       _tblWatchlist,
-      where: 'id = ?',
-      whereArgs: [movie.id],
+      where: 'refId = ? and type = ?',
+      whereArgs: [watch.refId, watch.type.index],
     );
   }
 
-  Future<Map<String, dynamic>?> getMovieById(int id) async {
+  Future<Map<String, dynamic>?> getWatchById(int id) async {
     final db = await database;
     final results = await db!.query(
       _tblWatchlist,
@@ -70,10 +73,26 @@ class DatabaseHelper {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
+  Future<List<Map<String, dynamic>>> getWatchlist() async {
     final db = await database;
     final List<Map<String, dynamic>> results = await db!.query(_tblWatchlist);
 
     return results;
+  }
+
+  Future<Map<String, dynamic>?> getWatchByRefIdAndType(
+      int refId, Type type) async {
+    final db = await database;
+    final results = await db!.query(
+      _tblWatchlist,
+      where: 'refId = ? and type = ?',
+      whereArgs: [refId, type.index],
+    );
+
+    if (results.isNotEmpty) {
+      return results.first;
+    } else {
+      return null;
+    }
   }
 }

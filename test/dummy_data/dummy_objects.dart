@@ -1,7 +1,11 @@
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/watch_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/watch.dart';
+import 'package:ditonton/presentation/pages/search_page.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -20,7 +24,18 @@ final testMovie = Movie(
   voteCount: 13507,
 );
 
+final testWatch = Watch(
+    refId: 1,
+    title: 'Spider-Man',
+    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+    overview:
+        'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+    type: Type.MOVIE);
+
+final testWatchList = [testWatch];
+
 final testMovieList = [testMovie];
+
 
 final testMovieDetail = MovieDetail(
   adult: false,
@@ -44,6 +59,8 @@ final testWatchlistMovie = Movie.watchlist(
   overview: 'overview',
 );
 
+
+
 final testMovieTable = MovieTable(
   id: 1,
   title: 'title',
@@ -51,9 +68,19 @@ final testMovieTable = MovieTable(
   overview: 'overview',
 );
 
+final testWatchTable = WatchTable(
+    id:1,
+    refId: 1,
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
+    type: Type.MOVIE);
+
 final testMovieMap = {
   'id': 1,
+  'refId':1,
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'type':0
 };
