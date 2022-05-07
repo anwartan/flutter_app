@@ -58,20 +58,20 @@ class DatabaseHelper {
     );
   }
 
-  Future<Map<String, dynamic>?> getWatchById(int id) async {
-    final db = await database;
-    final results = await db!.query(
-      _tblWatchlist,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-
-    if (results.isNotEmpty) {
-      return results.first;
-    } else {
-      return null;
-    }
-  }
+  // Future<Map<String, dynamic>?> getWatchById(int id) async {
+  //   final db = await database;
+  //   final results = await db!.query(
+  //     _tblWatchlist,
+  //     where: 'id = ?',
+  //     whereArgs: [id],
+  //   );
+  //
+  //   if (results.isNotEmpty) {
+  //     return results.first;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   Future<List<Map<String, dynamic>>> getWatchlist() async {
     final db = await database;

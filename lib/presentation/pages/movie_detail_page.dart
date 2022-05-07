@@ -218,6 +218,7 @@ class DetailContent extends StatelessWidget {
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
+                                                key: Key(movie.id.toString()),
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) =>
@@ -237,7 +238,9 @@ class DetailContent extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  return Container();
+                                  return Container(
+                                    key: Key("EmptyContainer"),
+                                  );
                                 }
                               },
                             ),

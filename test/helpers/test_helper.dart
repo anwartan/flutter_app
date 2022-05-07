@@ -5,6 +5,7 @@ import 'package:ditonton/data/datasources/watch_local_data_source.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 import 'package:ditonton/domain/repositories/watch_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 
@@ -16,6 +17,7 @@ import 'package:mockito/annotations.dart';
   TvRemoteDataSource,
   WatchLocalDataSource,
   DatabaseHelper,
+  NavigatorObserver
 ], customMocks: [
   MockSpec<http.Client>(as: #MockHttpClient)
 ])

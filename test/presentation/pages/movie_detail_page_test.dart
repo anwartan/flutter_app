@@ -1,3 +1,5 @@
+
+
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
@@ -29,7 +31,7 @@ void main() {
   }
 
   testWidgets(
-      'Watchlist button should display add icon when movie not added to watchlist',
+      'Image shoud display ',
       (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
@@ -105,4 +107,21 @@ void main() {
     expect(find.byType(AlertDialog), findsOneWidget);
     expect(find.text('Failed'), findsOneWidget);
   });
+
+  testWidgets(
+      'recommendation should display empty container when RequestState is empty',
+          (WidgetTester tester) async {
+            when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
+            when(mockNotifier.movie).thenReturn(testMovieDetail);
+            when(mockNotifier.recommendationState).thenReturn(RequestState.Empty);
+            when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+            when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+
+            await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
+            await tester.drag(find.byType(SingleChildScrollView).first, const Offset(500.0, 0.0));
+            await tester.pump();
+            final expected = find.byKey(Key("EmptyContainer"));
+            expect(expected, findsOneWidget);
+      });
+
 }

@@ -39,7 +39,7 @@ class TvDetailModel extends Equatable {
       posterPath: json["poster_path"],
       seasons: List<SeasonModel>.from(
           json["seasons"].map((x) => SeasonModel.fromJson(x))),
-      voteAverage: json["vote_average"]);
+      voteAverage: json["vote_average"].toDouble());
 
   Map<String, dynamic> toJson() => {
         "backdrop_path": backdropPath,
@@ -51,7 +51,7 @@ class TvDetailModel extends Equatable {
         "overview": overview,
         "poster_path": posterPath,
         "seasons": List<dynamic>.from(seasons.map((x) => x.toJson())),
-        "voteAverage": voteAverage
+        "vote_average": voteAverage
       };
 
   @override

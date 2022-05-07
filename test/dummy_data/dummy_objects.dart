@@ -1,12 +1,20 @@
-import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/episode_model.dart';
+import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/season_model.dart';
+import 'package:ditonton/data/models/tv_detail_model.dart';
+import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/models/watch_table.dart';
+import 'package:ditonton/domain/entities/episode.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/domain/entities/watch.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 
+final date = DateTime.parse("2005-05-05");
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -26,16 +34,14 @@ final testMovie = Movie(
 
 final testWatch = Watch(
     refId: 1,
-    title: 'Spider-Man',
-    posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    overview:
-        'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
     type: Type.MOVIE);
 
 final testWatchList = [testWatch];
 
 final testMovieList = [testMovie];
-
 
 final testMovieDetail = MovieDetail(
   adult: false,
@@ -52,6 +58,100 @@ final testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
+final testEpisode = Episode(
+    airDate: date,
+    episodeNumber: 1,
+    id: 1,
+    name: "name",
+    overview: "overview",
+    productionCode: "productionCode",
+    seasonNumber: 1,
+    stillPath: "stillPath",
+    voteAverage: 1,
+    voteCount: 1);
+final testEpisodes = [testEpisode];
+final testGenre = Genre(id: 1, name: "name");
+final testSeason = Season(
+    airDate: date,
+    episodeCount: 1,
+    id: 1,
+    name: "name",
+    overview: "overview",
+    posterPath: "posterPath",
+    seasonNumber: 1);
+
+final testTvDetail = TvDetail(
+    backdropPath: "backdropPath",
+    genres: [testGenre],
+    id: 1,
+    numberOfEpisodes: 1,
+    numberOfSeasons: 1,
+    originalName: "originalName",
+    overview: "overview",
+    posterPath: "posterPath",
+    seasons: [testSeason],
+    voteAverage: 1.0);
+
+final testTv = Tv(
+    posterPath: "posterPath",
+    popularity: 20,
+    id: 1,
+    backdropPath: "backdropPath",
+    voteAverage: 1,
+    overview: "overview",
+    firstAirDate: date,
+    originCountry: ["originCountry"],
+    genreIds: [1],
+    originalLanguage: "originalLanguage",
+    voteCount: 1,
+    name: "name",
+    originalName: "originalName");
+final testTvs = [testTv];
+final testTvDetailModel = TvDetailModel(
+    backdropPath: "backdropPath",
+    genres: [GenreModel(id: 1, name: "name")],
+    id: 1,
+    numberOfEpisodes: 1,
+    numberOfSeasons: 1,
+    originalName: "originalName",
+    overview: "overview",
+    posterPath: "posterPath",
+    seasons: [
+      SeasonModel(
+          airDate: date,
+          episodeCount: 1,
+          id: 1,
+          name: "name",
+          overview: "overview",
+          posterPath: "posterPath",
+          seasonNumber: 1)
+    ],
+    voteAverage: 1);
+final testEpisodeModel = EpisodeModel(
+    airDate: date,
+    episodeNumber: 1,
+    id: 1,
+    name: "name",
+    overview: "overview",
+    productionCode: "productionCode",
+    seasonNumber: 1,
+    stillPath: "stillPath",
+    voteAverage: 1,
+    voteCount: 1);
+final testTvModel = TvModel(
+    posterPath: 'posterPath',
+    popularity: 20,
+    id: 1,
+    backdropPath: "backdropPath",
+    voteAverage: 1,
+    overview: "overview",
+    firstAirDate: date,
+    originCountry: ["originCountry"],
+    genreIds: [1],
+    originalLanguage: "originalLanguage",
+    voteCount: 1,
+    name: "name",
+    originalName: "originalName");
 final testWatchlistMovie = Movie.watchlist(
   id: 1,
   title: 'title',
@@ -59,28 +159,35 @@ final testWatchlistMovie = Movie.watchlist(
   overview: 'overview',
 );
 
-
-
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
 final testWatchTable = WatchTable(
-    id:1,
+    id: 1,
     refId: 1,
     title: 'title',
     posterPath: 'posterPath',
     overview: 'overview',
     type: Type.MOVIE);
 
-final testMovieMap = {
+final testWatchMap = {
   'id': 1,
-  'refId':1,
+  'refId': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
-  'type':0
+  'type': 0
+};
+
+final testWatchTableWithoutId = WatchTable(
+    id: null,
+    refId: 1,
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
+    type: Type.MOVIE);
+final testWatchMapWithoutId = {
+  'id': null,
+  'refId': 1,
+  'overview': 'overview',
+  'posterPath': 'posterPath',
+  'title': 'title',
+  'type': 0
 };

@@ -38,11 +38,6 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<Tv>>> getTopRatedOnTv() async {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, TvDetail>> getTvDetail(int id) async {
     try {
       final result = await tvRemoteDataSource.getTvDetail(id);

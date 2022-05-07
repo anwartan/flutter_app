@@ -1,6 +1,7 @@
 import 'package:ditonton/domain/entities/episode.dart';
+import 'package:equatable/equatable.dart';
 
-class EpisodeModel {
+class EpisodeModel extends Equatable {
   EpisodeModel({
     required this.airDate,
     required this.episodeNumber,
@@ -66,4 +67,18 @@ class EpisodeModel {
       voteCount: this.voteCount,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        airDate,
+        episodeNumber,
+        id,
+        name,
+        overview,
+        productionCode,
+        seasonNumber,
+        stillPath,
+        voteAverage,
+        voteCount,
+      ];
 }

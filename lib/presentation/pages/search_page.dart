@@ -57,7 +57,9 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (context, data, child) {
                   if (data.state == RequestState.Loading) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        key: Key("Movie"),
+                      ),
                     );
                   } else if (data.state == RequestState.Loaded) {
                     final result = data.searchResult;
@@ -66,14 +68,17 @@ class _SearchPageState extends State<SearchPage> {
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
                           final movie = data.searchResult[index];
-                          return MovieCard(movie);
+                          return MovieCard(
+                              key: Key(movie.id.toString()), movie: movie);
                         },
                         itemCount: result.length,
                       ),
                     );
                   } else {
                     return Expanded(
-                      child: Container(),
+                      child: Container(
+                        key: Key("emptyContainerMovie"),
+                      ),
                     );
                   }
                 },
@@ -83,7 +88,9 @@ class _SearchPageState extends State<SearchPage> {
                 builder: (context, data, child) {
                   if (data.state == RequestState.Loading) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        key: Key("TV"),
+                      ),
                     );
                   } else if (data.state == RequestState.Loaded) {
                     final result = data.searchResult;
@@ -92,14 +99,17 @@ class _SearchPageState extends State<SearchPage> {
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
                           final tv = data.searchResult[index];
-                          return TvSeriesCard(tv);
+                          return TvSeriesCard(
+                              key: Key(tv.id.toString()), tv: tv);
                         },
                         itemCount: result.length,
                       ),
                     );
                   } else {
                     return Expanded(
-                      child: Container(),
+                      child: Container(
+                        key: Key("emptyContainerTv"),
+                      ),
                     );
                   }
                 },

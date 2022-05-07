@@ -1,6 +1,7 @@
 import 'package:ditonton/domain/entities/season.dart';
+import 'package:equatable/equatable.dart';
 
-class SeasonModel {
+class SeasonModel extends Equatable {
   SeasonModel({
     required this.airDate,
     required this.episodeCount,
@@ -50,4 +51,15 @@ class SeasonModel {
         posterPath: this.posterPath,
         seasonNumber: this.seasonNumber);
   }
+
+  @override
+  List<Object?> get props => [
+        airDate,
+        episodeCount,
+        id,
+        name,
+        overview,
+        posterPath,
+        seasonNumber,
+      ];
 }

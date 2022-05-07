@@ -34,7 +34,11 @@ Jika kamu menerapkan modular pada project, Anda dapat memanfaatkan berkas `test.
             | ----------- | ----------- |
             | GENTHTML | C:\ProgramData\chocolatey\lib\lcov\tools\bin\genhtml |
             | LCOV_HOME | C:\ProgramData\chocolatey\lib\lcov\tools |
-        
+    - Bagi pengguna **Windows**, bisa juga menggunakan :
+        flutter pub global run test_cov_console
+    - untuk build mock maka gunakan
+        flutter pub run build_runner build
+
 2. Untuk mempermudah proses verifikasi testing, jalankan perintah berikut.
     ```
     git init

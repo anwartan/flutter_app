@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/common/failure.dart';
+import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/watch.dart';
 import 'package:ditonton/domain/usecases/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_movie_recommendations.dart';
-import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -76,7 +76,7 @@ void main() {
     when(mockGetMovieRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tMovies));
   }
-
+  //now
   group('Get Movie Detail', () {
     test('should get data from the usecase', () async {
       // arrange
@@ -192,6 +192,21 @@ void main() {
       await provider.removeFromWatchlist(testMovieDetail);
       // assert
       verify(mockRemoveWatchlist.execute(watch));
+    });
+    test('should execute remove movie watchlist when function error', () async {
+      // arrange
+      Watch watch = testMovieDetail.copyToWatch();
+
+      when(mockRemoveWatchlist.execute(watch))
+          .thenAnswer((_) async => Left(DatabaseFailure("failed remove watch list")));
+      when(mockGetWatchlistStatus.execute(watch.refId,Type.MOVIE))
+          .thenAnswer((_) async => true);
+      // act
+      await provider.removeFromWatchlist(testMovieDetail);
+      // assert
+      verify(mockRemoveWatchlist.execute(watch));
+      expect(provider.watchlistMessage, 'failed remove watch list');
+
     });
 
     test('should update movie watchlist status when add watchlist success', () async {

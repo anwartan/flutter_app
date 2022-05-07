@@ -53,12 +53,14 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final watch = data.watchlist[index];
-                  if(watch.type==Type.MOVIE){
-                    return MovieCard(watch.copyToMovie());
-                  }else {
-                    return TvSeriesCard(watch.copyToTv());
+                  if (watch.type == Type.MOVIE) {
+                    final movie = watch.copyToMovie();
+                    return MovieCard(
+                        key: Key(movie.id.toString()), movie: movie);
+                  } else {
+                    final tv = watch.copyToTv();
+                    return TvSeriesCard(key: Key(tv.id.toString()), tv: tv);
                   }
-
                 },
                 itemCount: data.watchlist.length,
               );
