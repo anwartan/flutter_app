@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/watch.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 
 abstract class WatchRepository {
   Future<Either<Failure, String>> saveWatchlist(Watch watch);

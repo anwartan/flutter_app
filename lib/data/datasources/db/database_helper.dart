@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:ditonton/data/models/watch_table.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

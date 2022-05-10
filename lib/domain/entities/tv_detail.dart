@@ -1,6 +1,6 @@
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:equatable/equatable.dart';
 
 import 'watch.dart';

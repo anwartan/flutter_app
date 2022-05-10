@@ -1,6 +1,6 @@
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/watch_local_data_source.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

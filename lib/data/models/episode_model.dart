@@ -15,7 +15,7 @@ class EpisodeModel extends Equatable {
     required this.voteCount,
   });
 
-  final DateTime airDate;
+  final DateTime? airDate;
   final int episodeNumber;
   final int id;
   final String name;
@@ -27,7 +27,7 @@ class EpisodeModel extends Equatable {
   final int voteCount;
 
   factory EpisodeModel.fromJson(Map<String, dynamic> json) => EpisodeModel(
-        airDate: DateTime.parse(json["air_date"]),
+        airDate:json["air_date"]=="" || json["air_date"]==null ? null : DateTime.parse(json["air_date"]),
         episodeNumber: json["episode_number"],
         id: json["id"],
         name: json["name"],
@@ -40,8 +40,8 @@ class EpisodeModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "air_date":
-            "${airDate.year.toString().padLeft(4, '0')}-${airDate.month.toString().padLeft(2, '0')}-${airDate.day.toString().padLeft(2, '0')}",
+        "air_date":airDate==null?null:
+            "${airDate!.year.toString().padLeft(4, '0')}-${airDate!.month.toString().padLeft(2, '0')}-${airDate!.day.toString().padLeft(2, '0')}",
         "episode_number": episodeNumber,
         "id": id,
         "name": name,

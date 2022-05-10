@@ -12,7 +12,7 @@ import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
 import 'package:ditonton/domain/entities/watch.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 
 final date = DateTime.parse("2005-05-05");
 final testMovie = Movie(

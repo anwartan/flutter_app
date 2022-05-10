@@ -16,6 +16,7 @@ import 'package:ditonton/domain/usecases/get_now_playing_on_tv.dart';
 import 'package:ditonton/domain/usecases/get_popular_movies.dart';
 import 'package:ditonton/domain/usecases/get_popular_on_tv.dart';
 import 'package:ditonton/domain/usecases/get_top_rated_movies.dart';
+import 'package:ditonton/domain/usecases/get_top_rated_on_tv.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_recommendation.dart';
 import 'package:ditonton/domain/usecases/get_watchlist.dart';
@@ -31,6 +32,7 @@ import 'package:ditonton/presentation/provider/on_air_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
@@ -79,7 +81,7 @@ void init() {
     ),
   );
   locator.registerFactory(() => TvSeriesListNotifier(
-      getNowPlayingOnTv: locator(), getPopularOnTv: locator()));
+      getNowPlayingOnTv: locator(), getPopularOnTv: locator(), getTopRatedOnTv: locator()));
   locator.registerFactory(() => PopularTvNotifier(locator()));
   locator.registerFactory(() => OnAirTvNotifier(locator()));
   locator.registerFactory(() => TvDetailNotifier(
@@ -90,7 +92,7 @@ void init() {
       getWatchListStatus: locator(),
       removeWatchlist: locator()));
   locator.registerFactory(() => TvSearchNotifier(searchOnTv: locator()));
-
+  locator.registerFactory(() => TopRatedTvNotifier(getTopRatedOnTv: locator()));
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
@@ -109,6 +111,7 @@ void init() {
   locator.registerLazySingleton(() => GetTvRecommendations(locator()));
   locator.registerLazySingleton(() => GetEpisodeTv(locator()));
   locator.registerLazySingleton(() => SearchOnTv(locator()));
+  locator.registerLazySingleton(() => GetTopRatedOnTv(locator()));
   // repository
   locator.registerLazySingleton<MovieRepository>(
     () => MovieRepositoryImpl(

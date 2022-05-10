@@ -4,8 +4,8 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/datasources/watch_local_data_source.dart';
 import 'package:ditonton/data/models/watch_table.dart';
 import 'package:ditonton/domain/entities/watch.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:ditonton/domain/repositories/watch_repository.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
 
 class WatchRepositoryImpl extends WatchRepository {
   final WatchLocalDataSource localDataSource;

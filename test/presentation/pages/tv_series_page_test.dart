@@ -32,12 +32,13 @@ void main() {
           (WidgetTester tester) async {
         when(mockNotifier.popularState).thenReturn(RequestState.Loading);
         when(mockNotifier.onAirState).thenReturn(RequestState.Loading);
+        when(mockNotifier.topRatedState).thenReturn(RequestState.Loading);
 
         final progressBarFinder = find.byType(CircularProgressIndicator);
 
         await tester.pumpWidget(_makeTestableWidget(TvSeriesPage()));
 
-        expect(progressBarFinder, findsNWidgets(2));
+        expect(progressBarFinder, findsNWidgets(3));
       });
 
   testWidgets('Page should display ListView when data is loaded',
@@ -46,24 +47,27 @@ void main() {
         when(mockNotifier.popular).thenReturn(<Tv>[]);
         when(mockNotifier.onAirState).thenReturn(RequestState.Loaded);
         when(mockNotifier.onAir).thenReturn(<Tv>[]);
+        when(mockNotifier.topRatedState).thenReturn(RequestState.Loaded);
+        when(mockNotifier.topRated).thenReturn(<Tv>[]);
 
         final listViewFinder = find.byType(ListView);
 
         await tester.pumpWidget(_makeTestableWidget(TvSeriesPage()));
 
-        expect(listViewFinder, findsNWidgets(2));
+        expect(listViewFinder, findsNWidgets(3));
       });
 
   testWidgets('Page should display text with message when Error',
           (WidgetTester tester) async {
         when(mockNotifier.popularState).thenReturn(RequestState.Error);
         when(mockNotifier.onAirState).thenReturn(RequestState.Error);
+        when(mockNotifier.topRatedState).thenReturn(RequestState.Error);
 
         final textFinder = find.text('Failed');
 
         await tester.pumpWidget(_makeTestableWidget(TvSeriesPage()));
 
-        expect(textFinder, findsNWidgets(2));
+        expect(textFinder, findsNWidgets(3));
       });
 
   testWidgets('Page should display list view movie card  when data is loaded',
@@ -72,11 +76,13 @@ void main() {
         when(mockNotifier.popular).thenReturn(<Tv>[testTv]);
         when(mockNotifier.onAirState).thenReturn(RequestState.Loaded);
         when(mockNotifier.onAir).thenReturn(<Tv>[testTv]);
+        when(mockNotifier.topRatedState).thenReturn(RequestState.Loaded);
+        when(mockNotifier.topRated).thenReturn(<Tv>[testTv]);
 
         final listFinder = find.byType(TvSeriesList);
 
         await tester.pumpWidget(_makeTestableWidget(TvSeriesPage()));
 
-        expect(listFinder, findsNWidgets(2));
+        expect(listFinder, findsNWidgets(3));
       });
 }

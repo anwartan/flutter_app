@@ -4,19 +4,20 @@ import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/usecases/get_now_playing_on_tv.dart';
 import 'package:ditonton/domain/usecases/get_popular_on_tv.dart';
+import 'package:ditonton/domain/usecases/get_top_rated_on_tv.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import 'on_air_tv_notifier_test.mocks.dart';
-import 'popular_tv_notifier_test.mocks.dart';
+import 'tv_series_list_notifier_test.mocks.dart';
 
-@GenerateMocks([GetNowPlayingOnTv,GetPopularOnTv])
+@GenerateMocks([GetNowPlayingOnTv,GetPopularOnTv,GetTopRatedOnTv])
 void main() {
   late MockGetPopularOnTv mockGetPopularOnTv;
   late MockGetNowPlayingOnTv mockGetNowPlayingOnTv;
+  late MockGetTopRatedOnTv mockGetTopRatedOnTv;
   late TvSeriesListNotifier notifier;
   late int listenerCallCount;
 
@@ -24,7 +25,8 @@ void main() {
     listenerCallCount = 0;
     mockGetPopularOnTv = MockGetPopularOnTv();
     mockGetNowPlayingOnTv = MockGetNowPlayingOnTv();
-    notifier = TvSeriesListNotifier(getPopularOnTv: mockGetPopularOnTv,getNowPlayingOnTv: mockGetNowPlayingOnTv)
+    mockGetTopRatedOnTv = MockGetTopRatedOnTv();
+    notifier = TvSeriesListNotifier(getPopularOnTv: mockGetPopularOnTv,getNowPlayingOnTv: mockGetNowPlayingOnTv,getTopRatedOnTv: mockGetTopRatedOnTv)
       ..addListener(() {
         listenerCallCount++;
       });
@@ -53,6 +55,16 @@ void main() {
     expect(notifier.onAirState, RequestState.Loading);
     expect(listenerCallCount, 1);
   });
+  test('should change state top rated tv to loading when usecase is called', () async {
+    // arrange
+    when(mockGetTopRatedOnTv.execute())
+        .thenAnswer((_) async => Right(tTvList));
+    // act
+    notifier.fetchTopRatedOnTv();
+    // assert
+    expect(notifier.topRatedState, RequestState.Loading);
+    expect(listenerCallCount, 1);
+  });
 
   test('should change popular tv data when data is gotten successfully', () async {
     // arrange
@@ -76,6 +88,17 @@ void main() {
     expect(notifier.onAir, tTvList);
     expect(listenerCallCount, 2);
   });
+  test('should change on top rated tv data when data is gotten successfully', () async {
+    // arrange
+    when(mockGetTopRatedOnTv.execute())
+        .thenAnswer((_) async => Right(tTvList));
+    // act
+    await notifier.fetchTopRatedOnTv();
+    // assert
+    expect(notifier.topRatedState, RequestState.Loaded);
+    expect(notifier.topRated, tTvList);
+    expect(listenerCallCount, 2);
+  });
 
   test('should return popular error when data is unsuccessful', () async {
     // arrange
@@ -97,6 +120,18 @@ void main() {
     // assert
     expect(notifier.onAirState, RequestState.Error);
     expect(notifier.onAirMessage, 'Server Failure');
+    expect(listenerCallCount, 2);
+  });
+
+  test('should return top rated tv error when data is unsuccessful', () async {
+    // arrange
+    when(mockGetTopRatedOnTv.execute())
+        .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+    // act
+    await notifier.fetchTopRatedOnTv();
+    // assert
+    expect(notifier.topRatedState, RequestState.Error);
+    expect(notifier.topRatedMessage, 'Server Failure');
     expect(listenerCallCount, 2);
   });
 }

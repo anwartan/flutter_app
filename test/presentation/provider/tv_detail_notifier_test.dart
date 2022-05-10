@@ -3,13 +3,13 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/episode.dart';
 import 'package:ditonton/domain/entities/watch.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:ditonton/domain/usecases/get_episode_tv.dart';
 import 'package:ditonton/domain/usecases/get_tv_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_recommendation.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -150,6 +150,92 @@ void main() {
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });
+
+  });
+
+  group('watch list',(){
+    test('should get the watchlist status and type Type', () async {
+      // arrange
+      when(mockGetWatchListStatus.execute(1,Type.TV)).thenAnswer((_) async => true);
+      // act
+      await provider.loadWatchlistStatus(1);
+      // assert
+      expect(provider.isAddedToWatchlist, true);
+    });
+
+    test('should execute save tv watchlist when function called', () async {
+      // arrange
+      Watch watch = testTvDetail.copyToWatch();
+      when(mockSaveWatchlist.execute(watch))
+          .thenAnswer((_) async => Right('Success'));
+      when(mockGetWatchListStatus.execute(watch.refId,Type.TV))
+          .thenAnswer((_) async => true);
+      // act
+      await provider.addWatchlist(testTvDetail);
+      // assert
+      verify(mockSaveWatchlist.execute(watch));
+    });
+
+    test('should execute remove tv watchlist when function called', () async {
+      // arrange
+      Watch watch = testTvDetail.copyToWatch();
+
+      when(mockRemoveWatchlist.execute(watch))
+          .thenAnswer((_) async => Right('Removed'));
+      when(mockGetWatchListStatus.execute(watch.refId,Type.TV))
+          .thenAnswer((_) async => false);
+      // act
+      await provider.removeFromWatchlist(testTvDetail);
+      // assert
+      verify(mockRemoveWatchlist.execute(watch));
+    });
+
+    test('should execute remove tv watchlist when function error', () async {
+      // arrange
+      Watch watch = testTvDetail.copyToWatch();
+
+      when(mockRemoveWatchlist.execute(watch))
+          .thenAnswer((_) async => Left(DatabaseFailure("failed remove watch list")));
+      when(mockGetWatchListStatus.execute(watch.refId,Type.TV))
+          .thenAnswer((_) async => true);
+      // act
+      await provider.removeFromWatchlist(testTvDetail);
+      // assert
+      verify(mockRemoveWatchlist.execute(watch));
+      expect(provider.watchlistMessage, 'failed remove watch list');
+
+    });
+
+    test('should update tv watchlist status when add watchlist success', () async {
+      // arrange
+      Watch watch = testTvDetail.copyToWatch();
+      when(mockSaveWatchlist.execute(watch))
+          .thenAnswer((_) async => Right('Added to Watchlist'));
+      when(mockGetWatchListStatus.execute(watch.refId,Type.TV))
+          .thenAnswer((_) async => true);
+      // act
+      await provider.addWatchlist(testTvDetail);
+      // assert
+      verify(mockGetWatchListStatus.execute(watch.refId,Type.TV));
+      expect(provider.isAddedToWatchlist, true);
+      expect(provider.watchlistMessage, 'Added to Watchlist');
+      expect(listenerCallCount, 1);
+    });
+
+    test('should update movie watchlist message when add watchlist failed', () async {
+      // arrange
+      Watch watch = testTvDetail.copyToWatch();
+      when(mockSaveWatchlist.execute(watch))
+          .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+      when(mockGetWatchListStatus.execute(watch.refId,Type.TV))
+          .thenAnswer((_) async => false);
+      // act
+      await provider.addWatchlist(testTvDetail);
+      // assert
+      expect(provider.watchlistMessage, 'Failed');
+      expect(listenerCallCount, 1);
+    });
+
 
   });
 

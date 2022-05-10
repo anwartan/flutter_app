@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:ditonton/presentation/pages/on_air_tv_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,8 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
     Future.microtask(
         () => Provider.of<TvSeriesListNotifier>(context, listen: false)
           ..fetchNowPlayingOnTv()
-          ..fetchPopularOnTv());
+          ..fetchPopularOnTv()
+          ..fetchTopRatedOnTv());
   }
 
   @override
@@ -69,9 +72,26 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                 }
               }),
               _buildSubHeading(
-                title: 'Popular',
+                title: 'Top Rated',
                 onTap: () =>
                     Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME),
+              ),
+              Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
+                final state = data.topRatedState;
+                if (state == RequestState.Loading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state == RequestState.Loaded) {
+                  return TvSeriesList(data.topRated);
+                } else {
+                  return Text('Failed');
+                }
+              }),
+              _buildSubHeading(
+                title: 'Popular',
+                onTap: () =>
+                    Navigator.pushNamed(context, TopRatedTvPage.ROUTE_NAME),
               ),
               Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
                 final state = data.popularState;
@@ -85,6 +105,7 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                   return Text('Failed');
                 }
               }),
+
             ],
           ),
         ),

@@ -316,17 +316,17 @@ class DetailContent extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final movie =
+                                        final tv =
                                             tvListRecommendation[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
                                             onTap: () {
-                                              // Navigator.pushReplacementNamed(
-                                              //   context,
-                                              //   MovieDetailPage.ROUTE_NAME,
-                                              //   arguments: movie.id,
-                                              // );
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                TvDetailPage.ROUTE_NAME,
+                                                arguments: tv.id,
+                                              );
                                             },
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.all(
@@ -334,7 +334,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${tv.posterPath}',
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:

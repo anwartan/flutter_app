@@ -10,6 +10,7 @@ import 'package:ditonton/domain/entities/episode.dart' as _i12;
 import 'package:ditonton/domain/entities/tv.dart' as _i10;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i8;
 import 'package:ditonton/domain/entities/watch.dart' as _i16;
+import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/repositories/watch_repository.dart' as _i4;
 import 'package:ditonton/domain/usecases/get_episode_tv.dart' as _i11;
@@ -18,7 +19,6 @@ import 'package:ditonton/domain/usecases/get_tv_recommendation.dart' as _i9;
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart' as _i13;
 import 'package:ditonton/domain/usecases/remove_watchlist.dart' as _i17;
 import 'package:ditonton/domain/usecases/save_watchlist.dart' as _i15;
-import 'package:ditonton/presentation/pages/search_page.dart' as _i14;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint

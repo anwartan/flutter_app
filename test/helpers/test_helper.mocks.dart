@@ -25,10 +25,10 @@ import 'package:ditonton/domain/entities/movie_detail.dart' as _i17;
 import 'package:ditonton/domain/entities/tv.dart' as _i9;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i10;
 import 'package:ditonton/domain/entities/watch.dart' as _i13;
+import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i15;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i6;
 import 'package:ditonton/domain/repositories/watch_repository.dart' as _i12;
-import 'package:ditonton/presentation/pages/search_page.dart' as _i14;
 import 'package:flutter/src/widgets/navigator.dart' as _i27;
 import 'package:http/http.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
@@ -104,6 +104,12 @@ class MockTvRepository extends _i1.Mock implements _i6.TvRepository {
                   Future<_i2.Either<_i8.Failure, List<_i11.Episode>>>.value(
                       _FakeEither_0<_i8.Failure, List<_i11.Episode>>()))
           as _i7.Future<_i2.Either<_i8.Failure, List<_i11.Episode>>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.Tv>>> getTopRatedOnTv() =>
+      (super.noSuchMethod(Invocation.method(#getTopRatedOnTv, []),
+              returnValue: Future<_i2.Either<_i8.Failure, List<_i9.Tv>>>.value(
+                  _FakeEither_0<_i8.Failure, List<_i9.Tv>>()))
+          as _i7.Future<_i2.Either<_i8.Failure, List<_i9.Tv>>>);
 }
 
 /// A class which mocks [WatchRepository].
@@ -274,6 +280,11 @@ class MockTvRemoteDataSource extends _i1.Mock
   @override
   _i7.Future<List<_i21.TvModel>> searchTv(String? query) =>
       (super.noSuchMethod(Invocation.method(#searchTv, [query]),
+              returnValue: Future<List<_i21.TvModel>>.value(<_i21.TvModel>[]))
+          as _i7.Future<List<_i21.TvModel>>);
+  @override
+  _i7.Future<List<_i21.TvModel>> getTvTopRated() =>
+      (super.noSuchMethod(Invocation.method(#getTvTopRated, []),
               returnValue: Future<List<_i21.TvModel>>.value(<_i21.TvModel>[]))
           as _i7.Future<List<_i21.TvModel>>);
 }

@@ -1,6 +1,6 @@
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/watch.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {

@@ -1,5 +1,5 @@
 import 'package:ditonton/domain/entities/watch.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:equatable/equatable.dart';
 
 class WatchTable extends Equatable {

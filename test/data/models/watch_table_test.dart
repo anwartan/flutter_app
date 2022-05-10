@@ -1,6 +1,6 @@
 import 'package:ditonton/data/models/watch_table.dart';
 import 'package:ditonton/domain/entities/watch.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/common/enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../dummy_data/dummy_objects.dart';
