@@ -21,6 +21,7 @@ import 'package:ditonton/presentation/provider/on_air_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rated_tv_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => di.locator<OnAirTvNotifier>()),
         ChangeNotifierProvider(create: (_) => di.locator<TvDetailNotifier>()),
         ChangeNotifierProvider(create: (_) => di.locator<TvSearchNotifier>()),
-        ChangeNotifierProvider(create: (_) => di.locator<TopRatedMoviesNotifier>()),
+        ChangeNotifierProvider(create: (_) => di.locator<TopRatedTvNotifier>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

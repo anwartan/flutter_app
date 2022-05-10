@@ -74,7 +74,7 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TopRatedTvPage.ROUTE_NAME),
               ),
               Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedState;
@@ -91,7 +91,7 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () =>
-                    Navigator.pushNamed(context, TopRatedTvPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME),
               ),
               Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
                 final state = data.popularState;
