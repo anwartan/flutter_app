@@ -17,16 +17,16 @@ class TvDetail extends Equatable {
       required this.posterPath,
       required this.originalName,
       required this.voteAverage});
-  String? backdropPath;
-  List<Genre> genres;
-  int id;
-  int? numberOfEpisodes;
-  int? numberOfSeasons;
-  List<Season> seasons;
-  String overview;
-  String? posterPath;
-  String? originalName;
-  double voteAverage;
+  final String? backdropPath;
+  final List<Genre> genres;
+  final int id;
+  final int? numberOfEpisodes;
+  final int? numberOfSeasons;
+  final List<Season> seasons;
+  final String overview;
+  final String? posterPath;
+  final String? originalName;
+  final double voteAverage;
 
   @override
   // TODO: implement props

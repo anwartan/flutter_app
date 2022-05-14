@@ -40,8 +40,8 @@ class TvDetailNotifier extends ChangeNotifier {
   List<Tv> get tvRecommendations => _tvRecommendations;
   RequestState _seasonState = RequestState.Empty;
   RequestState get seasonState => _seasonState;
-  Map<int, List<Episode>> _Seasons = Map();
-  Map<int, List<Episode>> get seasons => _Seasons;
+  Map<int, List<Episode>> _seasons = Map();
+  Map<int, List<Episode>> get seasons => _seasons;
 
   RequestState _recommendationState = RequestState.Empty;
   RequestState get recommendationState => _recommendationState;
@@ -99,7 +99,7 @@ class TvDetailNotifier extends ChangeNotifier {
         notifyListeners();
       },
       (data) {
-        _Seasons[idSeason] = data;
+        _seasons[idSeason] = data;
         _seasonState = RequestState.Loaded;
         notifyListeners();
       },

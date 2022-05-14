@@ -44,7 +44,7 @@ void main() {
   testWidgets('Page should display ListView when data is loaded',
           (WidgetTester tester) async {
         when(mockNotifier.watchlistState).thenReturn(RequestState.Loaded);
-        when(mockNotifier.watchlist).thenReturn(<Watch>[]);
+        when(mockNotifier.watchlist).thenReturn(<Watch>[testWatch]);
 
         final listViewFinder = find.byType(ListView);
 
@@ -52,7 +52,17 @@ void main() {
 
         expect(listViewFinder, findsOneWidget);
       });
+  testWidgets('Page should display ListView when data is loaded with empty',
+          (WidgetTester tester) async {
+        when(mockNotifier.watchlistState).thenReturn(RequestState.Loaded);
+        when(mockNotifier.watchlist).thenReturn(<Watch>[]);
 
+        final listViewFinder = find.byKey(Key("empty"));
+
+        await tester.pumpWidget(_makeTestableWidget(WatchlistMoviesPage()));
+
+        expect(listViewFinder, findsOneWidget);
+      });
   testWidgets('Page should display text with message when Error',
           (WidgetTester tester) async {
         when(mockNotifier.watchlistState).thenReturn(RequestState.Error);

@@ -53,9 +53,20 @@ void main() {
   testWidgets('Page should display when data is loaded',
           (WidgetTester tester) async {
         when(mockTvSearchNotifier.state).thenReturn(RequestState.Loaded);
-        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[]);
+        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[testTv]);
 
         final listViewFinder = find.byType(ListView);
+
+        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+
+        expect(listViewFinder, findsOneWidget);
+      });
+  testWidgets('Page should display when data is loaded with empty',
+          (WidgetTester tester) async {
+        when(mockTvSearchNotifier.state).thenReturn(RequestState.Loaded);
+        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[]);
+
+        final listViewFinder = find.byKey(Key("empty"));
 
         await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
 

@@ -5,12 +5,12 @@
 import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i3;
+import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/common/failure.dart' as _i7;
 import 'package:ditonton/domain/entities/episode.dart' as _i12;
 import 'package:ditonton/domain/entities/tv.dart' as _i10;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i8;
 import 'package:ditonton/domain/entities/watch.dart' as _i16;
-import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/repositories/watch_repository.dart' as _i4;
 import 'package:ditonton/domain/usecases/get_episode_tv.dart' as _i11;

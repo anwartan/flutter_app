@@ -4,7 +4,7 @@ import 'package:ditonton/common/enum.dart';
 import 'package:equatable/equatable.dart';
 
 class Watch extends Equatable {
-  late int? id;
+  final int? id;
   final int refId;
   final String? title;
   final String? posterPath;
@@ -20,7 +20,6 @@ class Watch extends Equatable {
       this.id});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [refId, title, posterPath, overview, type];
 
   Watch.watchlist(
@@ -28,7 +27,7 @@ class Watch extends Equatable {
       required this.overview,
       required this.posterPath,
       required this.title,
-      required this.type});
+      required this.type, this.id});
 
   Tv copyToTv() => Tv.watchlist(
       id: refId, overview: overview, posterPath: posterPath, name: title);

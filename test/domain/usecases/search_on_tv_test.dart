@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/usecases/search_on_tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -16,7 +15,6 @@ void main() {
     usecase = SearchOnTv(mockTvRepository);
   });
 
-  final tMovies = <Movie>[];
   final tQuery = 'Spiderman';
 
   test('should get list of tv series from the repository', () async {

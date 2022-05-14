@@ -50,6 +50,21 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
+              if (data.watchlist.length == 0) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.movie,
+                        size: 70,
+                        key: Key('empty'),
+                      ),
+                      Text("Nothing found!")
+                    ],
+                  ),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final watch = data.watchlist[index];

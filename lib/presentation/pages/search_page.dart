@@ -8,8 +8,6 @@ import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-
 class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';
   final Type type;
@@ -64,6 +62,17 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   } else if (data.state == RequestState.Loaded) {
                     final result = data.searchResult;
+                    if (result.length == 0) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.movie, size: 70, key: Key('empty')),
+                            Text("Nothing found!")
+                          ],
+                        ),
+                      );
+                    }
                     return Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),
@@ -95,6 +104,17 @@ class _SearchPageState extends State<SearchPage> {
                     );
                   } else if (data.state == RequestState.Loaded) {
                     final result = data.searchResult;
+                    if (result.length == 0) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.movie, size: 70, key: Key('empty')),
+                            Text("Nothing found!")
+                          ],
+                        ),
+                      );
+                    }
                     return Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),

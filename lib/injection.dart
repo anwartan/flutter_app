@@ -25,6 +25,7 @@ import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_on_tv.dart';
+import 'package:ditonton/presentation/cubit/movie_detail/movie_detail_cubit.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -43,6 +44,13 @@ import 'package:http/http.dart' as http;
 final locator = GetIt.instance;
 
 void init() {
+  //bloC
+  locator.registerFactory(() => MovieDetailCubit(
+      getMovieDetail: locator(),
+      getMovieRecommendations: locator(),
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator()));
   // provider
   locator.registerFactory(
     () => MovieListNotifier(
@@ -81,7 +89,9 @@ void init() {
     ),
   );
   locator.registerFactory(() => TvSeriesListNotifier(
-      getNowPlayingOnTv: locator(), getPopularOnTv: locator(), getTopRatedOnTv: locator()));
+      getNowPlayingOnTv: locator(),
+      getPopularOnTv: locator(),
+      getTopRatedOnTv: locator()));
   locator.registerFactory(() => PopularTvNotifier(locator()));
   locator.registerFactory(() => OnAirTvNotifier(locator()));
   locator.registerFactory(() => TvDetailNotifier(

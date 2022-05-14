@@ -10,13 +10,13 @@ class Season extends Equatable {
     required this.posterPath,
     required this.seasonNumber,
   });
-  DateTime? airDate;
-  int? episodeCount;
-  int id;
-  String? name;
-  String? overview;
-  String? posterPath;
-  int seasonNumber;
+  final DateTime? airDate;
+  final int? episodeCount;
+  final int id;
+  final String? name;
+  final String? overview;
+  final String? posterPath;
+  final int seasonNumber;
 
   @override
   // TODO: implement props

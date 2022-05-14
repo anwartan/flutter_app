@@ -7,6 +7,7 @@ import 'dart:convert' as _i28;
 import 'dart:typed_data' as _i29;
 
 import 'package:dartz/dartz.dart' as _i2;
+import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/common/failure.dart' as _i8;
 import 'package:ditonton/data/datasources/db/database_helper.dart' as _i25;
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart'
@@ -25,7 +26,6 @@ import 'package:ditonton/domain/entities/movie_detail.dart' as _i17;
 import 'package:ditonton/domain/entities/tv.dart' as _i9;
 import 'package:ditonton/domain/entities/tv_detail.dart' as _i10;
 import 'package:ditonton/domain/entities/watch.dart' as _i13;
-import 'package:ditonton/common/enum.dart' as _i14;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i15;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i6;
 import 'package:ditonton/domain/repositories/watch_repository.dart' as _i12;

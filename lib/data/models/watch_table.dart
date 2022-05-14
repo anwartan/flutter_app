@@ -3,7 +3,7 @@ import 'package:ditonton/common/enum.dart';
 import 'package:equatable/equatable.dart';
 
 class WatchTable extends Equatable {
-  late int? id;
+  final int? id;
   final int refId;
   final String? title;
   final String? posterPath;
@@ -50,5 +50,6 @@ class WatchTable extends Equatable {
       overview: overview,
       posterPath: posterPath,
       title: title,
-      type: type);
+      type: type,
+      id: id);
 }
