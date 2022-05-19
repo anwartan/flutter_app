@@ -1,38 +1,29 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/common/enum.dart';
+import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/presentation/cubit/search/search_cubit.dart';
+import 'package:ditonton/presentation/cubit/search/search_state.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'search_page_test.mocks.dart';
 
-@GenerateMocks([TvSearchNotifier, MovieSearchNotifier])
+@GenerateMocks([SearchCubit])
 void main() {
-  late MockTvSearchNotifier mockTvSearchNotifier;
-  late MockMovieSearchNotifier mockMovieSearchNotifier;
+  late MockSearchCubit mockSearchCubit;
 
   setUp(() {
-    mockTvSearchNotifier = MockTvSearchNotifier();
-    mockMovieSearchNotifier = MockMovieSearchNotifier();
+    mockSearchCubit = MockSearchCubit();
   });
   //
   Widget _makeTestableWidget(Widget body) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TvSearchNotifier>(
-          create: (_) => mockTvSearchNotifier,
-        ),
-        ChangeNotifierProvider<MovieSearchNotifier>(
-          create: (_) => mockMovieSearchNotifier,
-        )
-      ],
+    return BlocProvider<SearchCubit>(
+      create: (_) => mockSearchCubit,
       child: MaterialApp(
         home: body,
       ),
@@ -40,59 +31,78 @@ void main() {
   }
 
   testWidgets('Page should display progress bar  when loading',
-          (WidgetTester tester) async {
-        when(mockTvSearchNotifier.state).thenReturn(RequestState.Loading);
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchLoading()));
 
-        final progressFinder = find.byKey(Key("TV"));
+    when(mockSearchCubit.state).thenReturn(SearchLoading());
 
-        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+    final progressFinder = find.byKey(Key("TV"));
 
-        expect(progressFinder, findsOneWidget);
-      });
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
 
-  testWidgets('Page should display when data is loaded',
-          (WidgetTester tester) async {
-        when(mockTvSearchNotifier.state).thenReturn(RequestState.Loaded);
-        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[testTv]);
+    expect(progressFinder, findsOneWidget);
+  });
 
-        final listViewFinder = find.byType(ListView);
+  testWidgets('Page should display when data is loaded with type movie',
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchMovieLoaded(<Movie>[testMovie])));
+    when(mockSearchCubit.state).thenReturn(SearchMovieLoaded(<Movie>[testMovie]));
 
-        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+    final listViewFinder = find.byType(ListView);
 
-        expect(listViewFinder, findsOneWidget);
-      });
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.MOVIE)));
+
+    expect(listViewFinder, findsOneWidget);
+  });
+
+  testWidgets('Page should display when data is loaded with type tv',
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchTvLoaded(<Tv>[testTv])));
+    when(mockSearchCubit.state).thenReturn(SearchTvLoaded(<Tv>[testTv]));
+
+    final listViewFinder = find.byType(ListView);
+
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+
+    expect(listViewFinder, findsOneWidget);
+  });
   testWidgets('Page should display when data is loaded with empty',
-          (WidgetTester tester) async {
-        when(mockTvSearchNotifier.state).thenReturn(RequestState.Loaded);
-        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[]);
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchTvLoaded(<Tv>[])));
+    when(mockSearchCubit.state).thenReturn(SearchTvLoaded(<Tv>[]));
+    final listViewFinder = find.byKey(Key("empty"));
 
-        final listViewFinder = find.byKey(Key("empty"));
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
 
-        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
-
-        expect(listViewFinder, findsOneWidget);
-      });
+    expect(listViewFinder, findsOneWidget);
+  });
 
   testWidgets('Page should display text with message when Error',
-          (WidgetTester tester) async {
-        when(mockTvSearchNotifier.state).thenReturn(RequestState.Error);
-        when(mockTvSearchNotifier.message).thenReturn('Error message');
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchError("failed")));
+    when(mockSearchCubit.state).thenReturn(SearchError("failed"));
 
-        final textFinder = find.byKey(Key('emptyContainerTv'));
+    final textFinder = find.byKey(Key('emptyContainerTv'));
 
-        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
 
-        expect(textFinder, findsOneWidget);
-      });
+    expect(textFinder, findsOneWidget);
+  });
   testWidgets('Page should display list view movie card  when data is loaded',
-          (WidgetTester tester) async {
-        when(mockTvSearchNotifier.state).thenReturn(RequestState.Loaded);
-        when(mockTvSearchNotifier.searchResult).thenReturn(<Tv>[testTv]);
+      (WidgetTester tester) async {
+    when(mockSearchCubit.stream)
+        .thenAnswer((_) => Stream.value(SearchTvLoaded(<Tv>[testTv])));
+    when(mockSearchCubit.state).thenReturn(SearchTvLoaded(<Tv>[testTv]));
 
-        final keyTvCardFinder = find.byKey(Key(testTv.id.toString()));
+    final keyTvCardFinder = find.byKey(Key(testTv.id.toString()));
 
-        await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
+    await tester.pumpWidget(_makeTestableWidget(SearchPage(type: Type.TV)));
 
-        expect(keyTvCardFinder, findsOneWidget);
-      });
+    expect(keyTvCardFinder, findsOneWidget);
+  });
 }

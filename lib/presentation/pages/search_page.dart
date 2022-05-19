@@ -1,12 +1,11 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/enum.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
+import 'package:ditonton/presentation/cubit/search/search_cubit.dart';
+import 'package:ditonton/presentation/cubit/search/search_state.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:ditonton/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';
@@ -32,10 +31,10 @@ class _SearchPageState extends State<SearchPage> {
             TextField(
               onSubmitted: (query) {
                 if (widget.type == Type.MOVIE) {
-                  Provider.of<MovieSearchNotifier>(context, listen: false)
+                  BlocProvider.of<SearchCubit>(context, listen: false)
                       .fetchMovieSearch(query);
                 } else if (widget.type == Type.TV) {
-                  Provider.of<TvSearchNotifier>(context, listen: false)
+                  BlocProvider.of<SearchCubit>(context, listen: false)
                       .fetchTvSearch(query);
                 }
               },
@@ -52,16 +51,16 @@ class _SearchPageState extends State<SearchPage> {
               style: kHeading6,
             ),
             if (widget.type == Type.MOVIE)
-              Consumer<MovieSearchNotifier>(
-                builder: (context, data, child) {
-                  if (data.state == RequestState.Loading) {
+              BlocBuilder<SearchCubit,SearchState>(
+                builder: (context, state) {
+                  if (state is SearchLoading) {
                     return Center(
                       child: CircularProgressIndicator(
                         key: Key("Movie"),
                       ),
                     );
-                  } else if (data.state == RequestState.Loaded) {
-                    final result = data.searchResult;
+                  } else if (state is SearchMovieLoaded) {
+                    final result = state.movies;
                     if (result.length == 0) {
                       return Center(
                         child: Column(
@@ -77,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
-                          final movie = data.searchResult[index];
+                          final movie = result[index];
                           return MovieCard(
                               key: Key(movie.id.toString()), movie: movie);
                         },
@@ -94,16 +93,16 @@ class _SearchPageState extends State<SearchPage> {
                 },
               )
             else if (widget.type == Type.TV)
-              Consumer<TvSearchNotifier>(
-                builder: (context, data, child) {
-                  if (data.state == RequestState.Loading) {
+              BlocBuilder<SearchCubit,SearchState>(
+                builder: (context, state) {
+                  if (state is SearchLoading) {
                     return Center(
                       child: CircularProgressIndicator(
                         key: Key("TV"),
                       ),
                     );
-                  } else if (data.state == RequestState.Loaded) {
-                    final result = data.searchResult;
+                  } else if (state is SearchTvLoaded) {
+                    final result = state.tv;
                     if (result.length == 0) {
                       return Center(
                         child: Column(
@@ -119,7 +118,7 @@ class _SearchPageState extends State<SearchPage> {
                       child: ListView.builder(
                         padding: const EdgeInsets.all(8),
                         itemBuilder: (context, index) {
-                          final tv = data.searchResult[index];
+                          final tv = result[index];
                           return TvSeriesCard(
                               key: Key(tv.id.toString()), tv: tv);
                         },

@@ -1,3 +1,4 @@
+import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
@@ -26,6 +27,18 @@ import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_on_tv.dart';
 import 'package:ditonton/presentation/cubit/movie_detail/movie_detail_cubit.dart';
+import 'package:ditonton/presentation/cubit/movie_recommendation/movie_recommendation_cubit.dart';
+import 'package:ditonton/presentation/cubit/now_playing_movie/now_playing_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/on_air_tv/on_air_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/popular_movie/popular_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/popular_tv/popular_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/search/search_cubit.dart';
+import 'package:ditonton/presentation/cubit/top_rated_movie/top_rated_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/top_rated_tv/top_rated_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_detail/tv_detail_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_recommendation/tv_recommendation_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_season/tv_season_cubit.dart';
+import 'package:ditonton/presentation/cubit/watch/watch_cubit.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -39,18 +52,36 @@ import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 
 final locator = GetIt.instance;
 
 void init() {
   //bloC
-  locator.registerFactory(() => MovieDetailCubit(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator()));
+  locator.registerFactory(() => MovieDetailCubit(getMovieDetail: locator()));
+
+  locator.registerFactory(
+      () => MovieRecommendationCubit(getMovieRecommendations: locator()));
+
+  locator.registerFactory(
+      () => WatchCubit(locator(), locator(), locator(), locator()));
+
+  locator.registerFactory(() => PopularMovieCubit(locator()));
+
+  locator.registerFactory(() => TopRatedMovieCubit(locator()));
+
+  locator.registerFactory(() => NowPlayingMovieCubit(locator()));
+
+  locator.registerFactory(() => SearchCubit(locator(), locator()));
+
+  locator.registerFactory(() => OnAirTvCubit(locator()));
+
+  locator.registerFactory(() => PopularTvCubit(locator()));
+  locator.registerFactory(() => TopRatedTvCubit(locator()));
+  locator.registerFactory(() => TvDetailCubit(locator()));
+
+  locator.registerFactory(() => TvSeasonCubit(locator()));
+  locator.registerFactory(() => TvRecommendationCubit(locator()));
+
   // provider
   locator.registerFactory(
     () => MovieListNotifier(
@@ -147,5 +178,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton<CustomIOClient>(() => CustomIOClient());
 }

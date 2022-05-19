@@ -1,16 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/common/enum.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/presentation/cubit/on_air_tv/on_air_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/on_air_tv/on_air_tv_state.dart';
+import 'package:ditonton/presentation/cubit/popular_tv/popular_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/popular_tv/popular_tv_state.dart';
+import 'package:ditonton/presentation/cubit/top_rated_tv/top_rated_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/top_rated_tv/top_rated_tv_state.dart';
 import 'package:ditonton/presentation/pages/on_air_tv_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
-import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TvSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/tv-series';
@@ -26,11 +30,13 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(
-        () => Provider.of<TvSeriesListNotifier>(context, listen: false)
-          ..fetchNowPlayingOnTv()
-          ..fetchPopularOnTv()
-          ..fetchTopRatedOnTv());
+    Future.microtask(() {
+      BlocProvider.of<OnAirTvCubit>(context, listen: false).fetchOnAirOnTv();
+      BlocProvider.of<TopRatedTvCubit>(context, listen: false)
+          .fetchTopRatedTv();
+      BlocProvider.of<PopularTvCubit>(context, listen: false)
+          .fetchPopularOnTv();
+    });
   }
 
   @override
@@ -59,14 +65,13 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, OnAirTvPage.ROUTE_NAME),
               ),
-              Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.onAirState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<OnAirTvCubit,OnAirTvState>(builder: (context, state) {
+                if (state is OnAirTvLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.onAir);
+                } else if (state is OnAirTvLoaded) {
+                  return TvSeriesList(state.listTv);
                 } else {
                   return Text('Failed');
                 }
@@ -76,14 +81,14 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TopRatedTvPage.ROUTE_NAME),
               ),
-              Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<TopRatedTvCubit,TopRatedTvState>(builder: (context, state) {
+
+                if (state is TopRatedTvLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.topRated);
+                } else if (state is TopRatedTvLoaded) {
+                  return TvSeriesList(state.listTv);
                 } else {
                   return Text('Failed');
                 }
@@ -93,19 +98,18 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                 onTap: () =>
                     Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME),
               ),
-              Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
-                final state = data.popularState;
-                if (state == RequestState.Loading) {
+              BlocBuilder<PopularTvCubit,PopularTvState>(builder: (context, state) {
+
+                if (state is PopularTvLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
-                  return TvSeriesList(data.popular);
+                } else if (state is PopularTvLoaded) {
+                  return TvSeriesList(state.listTv);
                 } else {
                   return Text('Failed');
                 }
               }),
-
             ],
           ),
         ),

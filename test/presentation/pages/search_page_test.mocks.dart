@@ -2,17 +2,13 @@
 // in ditonton/test/presentation/pages/search_page_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i7;
-import 'dart:ui' as _i8;
+import 'dart:async' as _i6;
 
-import 'package:ditonton/common/state_enum.dart' as _i5;
-import 'package:ditonton/domain/entities/movie.dart' as _i10;
-import 'package:ditonton/domain/entities/tv.dart' as _i6;
-import 'package:ditonton/domain/usecases/search_movies.dart' as _i3;
-import 'package:ditonton/domain/usecases/search_on_tv.dart' as _i2;
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart'
-    as _i9;
-import 'package:ditonton/presentation/provider/tv_search_notifier.dart' as _i4;
+import 'package:ditonton/domain/usecases/search_movies.dart' as _i2;
+import 'package:ditonton/domain/usecases/search_on_tv.dart' as _i3;
+import 'package:ditonton/presentation/cubit/search/search_cubit.dart' as _i5;
+import 'package:ditonton/presentation/cubit/search/search_state.dart' as _i4;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -25,105 +21,68 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeSearchOnTv_0 extends _i1.Fake implements _i2.SearchOnTv {}
+class _FakeSearchMovies_0 extends _i1.Fake implements _i2.SearchMovies {}
 
-class _FakeSearchMovies_1 extends _i1.Fake implements _i3.SearchMovies {}
+class _FakeSearchOnTv_1 extends _i1.Fake implements _i3.SearchOnTv {}
 
-/// A class which mocks [TvSearchNotifier].
+class _FakeSearchState_2 extends _i1.Fake implements _i4.SearchState {}
+
+/// A class which mocks [SearchCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTvSearchNotifier extends _i1.Mock implements _i4.TvSearchNotifier {
-  MockTvSearchNotifier() {
+class MockSearchCubit extends _i1.Mock implements _i5.SearchCubit {
+  MockSearchCubit() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.SearchOnTv get searchOnTv =>
-      (super.noSuchMethod(Invocation.getter(#searchOnTv),
-          returnValue: _FakeSearchOnTv_0()) as _i2.SearchOnTv);
-  @override
-  _i5.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i5.RequestState.Empty) as _i5.RequestState);
-  @override
-  List<_i6.Tv> get searchResult =>
-      (super.noSuchMethod(Invocation.getter(#searchResult),
-          returnValue: <_i6.Tv>[]) as List<_i6.Tv>);
-  @override
-  String get message =>
-      (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
-          as String);
-  @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
-          as bool);
-  @override
-  _i7.Future<void> fetchTvSearch(String? query) =>
-      (super.noSuchMethod(Invocation.method(#fetchTvSearch, [query]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
-  @override
-  void addListener(_i8.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#addListener, [listener]),
-          returnValueForMissingStub: null);
-  @override
-  void removeListener(_i8.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
-          returnValueForMissingStub: null);
-  @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
-  @override
-  void notifyListeners() =>
-      super.noSuchMethod(Invocation.method(#notifyListeners, []),
-          returnValueForMissingStub: null);
-}
-
-/// A class which mocks [MovieSearchNotifier].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockMovieSearchNotifier extends _i1.Mock
-    implements _i9.MovieSearchNotifier {
-  MockMovieSearchNotifier() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.SearchMovies get searchMovies =>
+  _i2.SearchMovies get searchMovies =>
       (super.noSuchMethod(Invocation.getter(#searchMovies),
-          returnValue: _FakeSearchMovies_1()) as _i3.SearchMovies);
+          returnValue: _FakeSearchMovies_0()) as _i2.SearchMovies);
   @override
-  _i5.RequestState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _i5.RequestState.Empty) as _i5.RequestState);
+  _i3.SearchOnTv get searchOnTv =>
+      (super.noSuchMethod(Invocation.getter(#searchOnTv),
+          returnValue: _FakeSearchOnTv_1()) as _i3.SearchOnTv);
   @override
-  List<_i10.Movie> get searchResult =>
-      (super.noSuchMethod(Invocation.getter(#searchResult),
-          returnValue: <_i10.Movie>[]) as List<_i10.Movie>);
+  _i4.SearchState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _FakeSearchState_2()) as _i4.SearchState);
   @override
-  String get message =>
-      (super.noSuchMethod(Invocation.getter(#message), returnValue: '')
-          as String);
+  _i6.Stream<_i4.SearchState> get stream =>
+      (super.noSuchMethod(Invocation.getter(#stream),
+              returnValue: Stream<_i4.SearchState>.empty())
+          as _i6.Stream<_i4.SearchState>);
   @override
-  bool get hasListeners =>
-      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+  bool get isClosed =>
+      (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  _i7.Future<void> fetchMovieSearch(String? query) =>
+  _i6.Future<void> fetchMovieSearch(String? query) =>
       (super.noSuchMethod(Invocation.method(#fetchMovieSearch, [query]),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i7.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
   @override
-  void addListener(_i8.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+  _i6.Future<void> fetchTvSearch(String? query) =>
+      (super.noSuchMethod(Invocation.method(#fetchTvSearch, [query]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
+  @override
+  void emit(_i4.SearchState? state) =>
+      super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i8.VoidCallback? listener) =>
-      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+  void onChange(_i7.Change<_i4.SearchState>? change) =>
+      super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
-  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
-      returnValueForMissingStub: null);
-  @override
-  void notifyListeners() =>
-      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+  void addError(Object? error, [StackTrace? stackTrace]) =>
+      super.noSuchMethod(Invocation.method(#addError, [error, stackTrace]),
           returnValueForMissingStub: null);
+  @override
+  void onError(Object? error, StackTrace? stackTrace) =>
+      super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
+          returnValueForMissingStub: null);
+  @override
+  _i6.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
 }

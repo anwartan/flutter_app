@@ -1,8 +1,20 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/common/enum.dart';
+import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:ditonton/presentation/cubit/movie_detail/movie_detail_cubit.dart';
+import 'package:ditonton/presentation/cubit/movie_recommendation/movie_recommendation_cubit.dart';
+import 'package:ditonton/presentation/cubit/now_playing_movie/now_playing_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/on_air_tv/on_air_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/popular_movie/popular_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/popular_tv/popular_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/search/search_cubit.dart';
+import 'package:ditonton/presentation/cubit/top_rated_movie/top_rated_movie_cubit.dart';
+import 'package:ditonton/presentation/cubit/top_rated_tv/top_rated_tv_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_detail/tv_detail_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_season/tv_season_cubit.dart';
+import 'package:ditonton/presentation/cubit/tv_recommendation/tv_recommendation_cubit.dart';
+import 'package:ditonton/presentation/cubit/watch/watch_cubit.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
@@ -27,12 +39,15 @@ import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   di.init();
   runApp(MyApp());
 }
@@ -67,7 +82,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => di.locator<TvDetailNotifier>()),
         ChangeNotifierProvider(create: (_) => di.locator<TvSearchNotifier>()),
         ChangeNotifierProvider(create: (_) => di.locator<TopRatedTvNotifier>()),
-        BlocProvider(create: (_) => di.locator<MovieDetailCubit>())
+        BlocProvider(create: (_) => di.locator<MovieDetailCubit>()),
+        BlocProvider(create: (_) => di.locator<MovieRecommendationCubit>()),
+        BlocProvider(create: (_) => di.locator<WatchCubit>()),
+        BlocProvider(create: (_) => di.locator<PopularMovieCubit>()),
+        BlocProvider(create: (_) => di.locator<TopRatedMovieCubit>()),
+        BlocProvider(create: (_) => di.locator<NowPlayingMovieCubit>()),
+        BlocProvider(create: (_) => di.locator<SearchCubit>()),
+        BlocProvider(create: (_) => di.locator<OnAirTvCubit>()),
+        BlocProvider(create: (_) => di.locator<PopularTvCubit>()),
+        BlocProvider(create: (_) => di.locator<TopRatedTvCubit>()),
+        BlocProvider(create: (_) => di.locator<TvDetailCubit>()),
+        BlocProvider(create: (_) => di.locator<TvSeasonCubit>()),
+        BlocProvider(create: (_) => di.locator<TvRecommendationCubit>())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

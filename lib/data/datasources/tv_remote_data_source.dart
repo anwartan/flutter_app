@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/data/models/episode_model.dart';
 import 'package:ditonton/data/models/episode_response.dart';
 import 'package:ditonton/data/models/tv_detail_model.dart';
 import 'package:ditonton/data/models/tv_model.dart';
 import 'package:ditonton/data/models/tv_response.dart';
-import 'package:http/http.dart';
 
 abstract class TvRemoteDataSource {
   Future<List<TvModel>> getNowPlayingOnTv();
@@ -22,7 +22,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
-  final Client client;
+  final CustomIOClient client;
 
   TvRemoteDataSourceImpl({required this.client});
 

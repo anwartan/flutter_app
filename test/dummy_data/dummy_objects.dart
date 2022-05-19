@@ -38,7 +38,12 @@ final testWatch = Watch(
     posterPath: 'posterPath',
     overview: 'overview',
     type: Type.MOVIE);
-
+final testWatchTv = Watch(
+    refId: 1,
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
+    type: Type.TV);
 final testWatchList = [testWatch];
 
 final testMovieList = [testMovie];
