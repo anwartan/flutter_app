@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/genre.dart';
 import 'package:core/domain/entities/watch.dart';
-
 import 'package:equatable/equatable.dart';
 
 class MovieDetail extends Equatable {

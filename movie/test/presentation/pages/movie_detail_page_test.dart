@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-
 import 'package:movie/presentation/cubit/movie_detail/movie_detail_cubit.dart';
-import 'package:movie/presentation/cubit/movie_detail/movie_detail_state.dart';import 'package:movie/presentation/cubit/movie_recommendation/movie_recommendation_cubit.dart';
+import 'package:movie/presentation/cubit/movie_detail/movie_detail_state.dart';
+import 'package:movie/presentation/cubit/movie_recommendation/movie_recommendation_cubit.dart';
 import 'package:movie/presentation/cubit/movie_recommendation/movie_recommendation_state.dart';
 import 'package:movie/presentation/pages/movie_detail_page.dart';
+import 'package:provider/provider.dart';
 import 'package:watch/presentation/cubic/watch/watch_cubit.dart';
 import 'package:watch/presentation/cubic/watch/watch_state.dart';
-import 'package:provider/provider.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'movie_detail_page_test.mocks.dart';

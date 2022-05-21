@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/movie_detail.dart';
 import 'package:core/domain/entities/tv_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watch/domain/get_watchlist.dart';
 import 'package:watch/domain/get_watchlist_status.dart';
 import 'package:watch/domain/remove_watchlist.dart';
 import 'package:watch/domain/save_watchlist.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'watch_state.dart';
 

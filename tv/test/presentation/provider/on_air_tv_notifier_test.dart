@@ -3,11 +3,11 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tv/domain/usecases/get_now_playing_on_tv.dart';
-import 'package:tv/presentation/provider/on_air_tv_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tv/domain/usecases/get_now_playing_on_tv.dart';
+import 'package:tv/presentation/provider/on_air_tv_notifier.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'on_air_tv_notifier_test.mocks.dart';

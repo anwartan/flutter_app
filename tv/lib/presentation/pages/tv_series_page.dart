@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv/presentation/cubit/on_air_tv/on_air_tv_cubit.dart';
 import 'package:tv/presentation/cubit/on_air_tv/on_air_tv_state.dart';
 import 'package:tv/presentation/cubit/popular_tv/popular_tv_cubit.dart';
 import 'package:tv/presentation/cubit/popular_tv/popular_tv_state.dart';
 import 'package:tv/presentation/cubit/top_rated_tv/top_rated_tv_cubit.dart';
 import 'package:tv/presentation/cubit/top_rated_tv/top_rated_tv_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TvSeriesPage extends StatefulWidget {
 

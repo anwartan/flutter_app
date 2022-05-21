@@ -1,11 +1,11 @@
+import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
 import 'package:dartz/dartz.dart';
-import 'package:core/core.dart';
-import 'package:movie/domain/get_popular_movies.dart';
-import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movie/domain/get_popular_movies.dart';
+import 'package:movie/presentation/provider/popular_movies_notifier.dart';
 
 import '../cubit/popular_movie_cubit_test.mocks.dart';
 

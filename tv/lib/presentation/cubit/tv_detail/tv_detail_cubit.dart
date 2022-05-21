@@ -1,7 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv/domain/usecases/get_tv_detail.dart';
 import 'package:tv/presentation/cubit/tv_detail/tv_detail_state.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TvDetailCubit extends Cubit<TvDetailState> {
   final GetTvDetail getTvDetail;

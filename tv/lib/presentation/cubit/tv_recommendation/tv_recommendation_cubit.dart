@@ -1,7 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv/domain/usecases/get_tv_recommendation.dart';
 import 'package:tv/presentation/cubit/tv_recommendation/tv_recommendation_state.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TvRecommendationCubit extends Cubit<TvRecommendationState> {
   final GetTvRecommendations getTvRecommendations;

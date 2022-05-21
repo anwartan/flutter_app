@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
-import 'package:tv/domain/usecases/get_popular_on_tv.dart';
 import 'package:flutter/foundation.dart';
+import 'package:tv/domain/usecases/get_popular_on_tv.dart';
 
 class PopularTvNotifier extends ChangeNotifier {
   final GetPopularOnTv getPopularOnTv;

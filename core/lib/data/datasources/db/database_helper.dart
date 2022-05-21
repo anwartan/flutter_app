@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:core/data/models/watch_table.dart';
 import 'package:core/utils/enum.dart';
-
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

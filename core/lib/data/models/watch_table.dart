@@ -1,6 +1,5 @@
 import 'package:core/domain/entities/watch.dart';
 import 'package:core/utils/enum.dart';
-
 import 'package:equatable/equatable.dart';
 
 class WatchTable extends Equatable {
