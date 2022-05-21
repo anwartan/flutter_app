@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:core/core.dart';
 import 'package:core/data/repositories/tv_repository_impl.dart';
 import 'package:dartz/dartz.dart';
-import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

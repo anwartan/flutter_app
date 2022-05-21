@@ -1,13 +1,13 @@
+import 'package:core/core.dart';
 import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/entities/watch.dart';
 import 'package:dartz/dartz.dart';
-import 'package:core/core.dart';
-import 'package:movie/domain/get_movie_detail.dart';
-import 'package:movie/domain/get_movie_recommendations.dart';
-import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movie/domain/get_movie_detail.dart';
+import 'package:movie/domain/get_movie_recommendations.dart';
+import 'package:movie/presentation/provider/movie_detail_notifier.dart';
 import 'package:watch/domain/get_watchlist_status.dart';
 import 'package:watch/domain/remove_watchlist.dart';
 import 'package:watch/domain/save_watchlist.dart';

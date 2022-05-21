@@ -1,16 +1,15 @@
 import 'package:core/domain/entities/movie.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:movie/presentation/cubit/now_playing_movie/now_playing_movie_cubit.dart';
 import 'package:movie/presentation/cubit/now_playing_movie/now_playing_movie_state.dart';
 import 'package:movie/presentation/cubit/popular_movie/popular_movie_cubit.dart';
 import 'package:movie/presentation/cubit/popular_movie/popular_movie_state.dart';
 import 'package:movie/presentation/cubit/top_rated_movie/top_rated_movie_cubit.dart';
 import 'package:movie/presentation/cubit/top_rated_movie/top_rated_movie_state.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:movie/presentation/pages/home_movie_page.dart';
 import 'package:provider/provider.dart';
 

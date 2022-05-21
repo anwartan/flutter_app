@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:core/data/models/episode_model.dart';
 import 'package:core/data/models/episode_response.dart';
 import 'package:core/data/models/tv_detail_model.dart';

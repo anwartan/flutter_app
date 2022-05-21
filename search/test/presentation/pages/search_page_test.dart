@@ -1,13 +1,13 @@
 import 'package:core/domain/entities/movie.dart';
 import 'package:core/domain/entities/tv.dart';
 import 'package:core/utils/enum.dart';
-import 'package:search/presentation/cubit/search/search_cubit.dart';
-import 'package:search/presentation/cubit/search/search_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:search/presentation/cubit/search/search_cubit.dart';
+import 'package:search/presentation/cubit/search/search_state.dart';
 import 'package:search/presentation/pages/search_page.dart';
 
 import '../../dummy_data/dummy_objects.dart';

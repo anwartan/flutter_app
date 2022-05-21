@@ -1,9 +1,10 @@
 import 'package:core/core.dart';
 import 'package:core/domain/entities/tv.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tv/domain/usecases/get_now_playing_on_tv.dart';
+
 import '../../domain/usecases/get_popular_on_tv.dart';
 import '../../domain/usecases/get_top_rated_on_tv.dart';
-import 'package:flutter/cupertino.dart';
 
 class TvSeriesListNotifier extends ChangeNotifier {
   final GetNowPlayingOnTv getNowPlayingOnTv;

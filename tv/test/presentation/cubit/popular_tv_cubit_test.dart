@@ -1,13 +1,13 @@
 
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
 import 'package:core/core.dart';
-import 'package:tv/domain/usecases/get_popular_on_tv.dart';
-import 'package:tv/presentation/cubit/popular_tv/popular_tv_cubit.dart';
-import 'package:tv/presentation/cubit/popular_tv/popular_tv_state.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:tv/domain/usecases/get_popular_on_tv.dart';
+import 'package:tv/presentation/cubit/popular_tv/popular_tv_cubit.dart';
+import 'package:tv/presentation/cubit/popular_tv/popular_tv_state.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import '../provider/popular_tv_notifier_test.mocks.dart';
