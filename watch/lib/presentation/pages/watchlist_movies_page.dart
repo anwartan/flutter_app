@@ -3,8 +3,8 @@ import 'package:core/presentation/widgets/movie_card_list.dart';
 import 'package:core/presentation/widgets/tv_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watch/presentation/cubic/watch/watch_cubit.dart';
-import 'package:watch/presentation/cubic/watch/watch_state.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_cubit.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_state.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
 
@@ -20,7 +20,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   void initState() {
     super.initState();
     Future.microtask(() =>
-        BlocProvider.of<WatchCubit>(context, listen: false).fetchWatchlist());
+        BlocProvider.of<WatchListCubit>(context, listen: false).fetchWatchlist());
   }
 
   @override
@@ -31,7 +31,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
 
   @override
   void didPopNext() {
-    BlocProvider.of<WatchCubit>(context, listen: false).fetchWatchlist();
+    BlocProvider.of<WatchListCubit>(context, listen: false).fetchWatchlist();
   }
 
   @override
@@ -42,9 +42,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<WatchCubit, WatchState>(
+        child: BlocBuilder<WatchListCubit, WatchListState>(
           builder: (context, state) {
-            if (state is WatchLoading) {
+            if (state is WatchListLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -78,7 +78,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 },
                 itemCount: state.listWatch.length,
               );
-            } else if (state is WatchError) {
+            } else if (state is WatchListError) {
               return Center(
                 key: const Key('error_message'),
                 child: Text(state.message),

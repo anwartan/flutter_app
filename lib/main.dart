@@ -40,6 +40,7 @@ import 'package:tv/presentation/provider/tv_detail_notifier.dart';
 import 'package:tv/presentation/provider/tv_search_notifier.dart';
 import 'package:tv/presentation/provider/tv_series_list_notifier.dart';
 import 'package:watch/presentation/cubic/watch/watch_cubit.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_cubit.dart';
 import 'package:watch/presentation/pages/watchlist_movies_page.dart';
 import 'package:watch/presentation/provider/watchlist_movie_notifier.dart';
 
@@ -92,7 +93,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<TopRatedTvCubit>()),
         BlocProvider(create: (_) => di.locator<TvDetailCubit>()),
         BlocProvider(create: (_) => di.locator<TvSeasonCubit>()),
-        BlocProvider(create: (_) => di.locator<TvRecommendationCubit>())
+        BlocProvider(create: (_) => di.locator<TvRecommendationCubit>()),
+        BlocProvider(create: (_) => di.locator<WatchListCubit>())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

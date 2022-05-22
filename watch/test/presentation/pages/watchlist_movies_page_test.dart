@@ -4,25 +4,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:watch/presentation/cubic/watch/watch_cubit.dart';
-import 'package:watch/presentation/cubic/watch/watch_state.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_cubit.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_state.dart';
 import 'package:watch/presentation/pages/watchlist_movies_page.dart';
 
 import '../../dummy_data/dummy_objects.dart';
 import 'watchlist_movies_page_test.mocks.dart';
 
 
-@GenerateMocks([WatchCubit])
+@GenerateMocks([WatchListCubit])
 void main() {
-  late MockWatchCubit mockWatchCubit;
+  late MockWatchListCubit mockWatchListCubit;
 
   setUp(() {
-    mockWatchCubit = MockWatchCubit();
+    mockWatchListCubit = MockWatchListCubit();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<WatchCubit>(
-      create: (_) => mockWatchCubit,
+    return BlocProvider<WatchListCubit>(
+      create: (_) => mockWatchListCubit,
       child: MaterialApp(
         home: body,
       ),
@@ -31,8 +31,8 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockWatchCubit.stream).thenAnswer((_) => Stream.value(WatchLoading()));
-    when(mockWatchCubit.state).thenReturn(WatchLoading());
+    when(mockWatchListCubit.stream).thenAnswer((_) => Stream.value(WatchListLoading()));
+    when(mockWatchListCubit.state).thenReturn(WatchListLoading());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -45,9 +45,9 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockWatchCubit.stream)
+    when(mockWatchListCubit.stream)
         .thenAnswer((_) => Stream.value(WatchListLoaded(<Watch>[testWatch])));
-    when(mockWatchCubit.state).thenReturn(WatchListLoaded(<Watch>[testWatch]));
+    when(mockWatchListCubit.state).thenReturn(WatchListLoaded(<Watch>[testWatch]));
 
     final listViewFinder = find.byType(ListView);
 
@@ -57,9 +57,9 @@ void main() {
   });
   testWidgets('Page should display ListView when data is loaded with empty',
       (WidgetTester tester) async {
-    when(mockWatchCubit.stream)
+    when(mockWatchListCubit.stream)
         .thenAnswer((_) => Stream.value(WatchListLoaded(const <Watch>[])));
-    when(mockWatchCubit.state).thenReturn(WatchListLoaded(const <Watch>[]));
+    when(mockWatchListCubit.state).thenReturn(WatchListLoaded(const <Watch>[]));
 
     final listViewFinder = find.byKey(const Key("empty"));
 
@@ -69,9 +69,9 @@ void main() {
   });
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockWatchCubit.stream)
-        .thenAnswer((_) => Stream.value(WatchError('Error message')));
-    when(mockWatchCubit.state).thenReturn(WatchError('Error message'));
+    when(mockWatchListCubit.stream)
+        .thenAnswer((_) => Stream.value(WatchListError('Error message')));
+    when(mockWatchListCubit.state).thenReturn(WatchListError('Error message'));
 
     final textFinder = find.byKey(const Key('error_message'));
 
@@ -82,9 +82,9 @@ void main() {
 
   testWidgets('Page should display list view movie card  when data is loaded',
       (WidgetTester tester) async {
-    when(mockWatchCubit.stream)
+    when(mockWatchListCubit.stream)
         .thenAnswer((_) => Stream.value(WatchListLoaded(<Watch>[testWatch])));
-    when(mockWatchCubit.state).thenReturn(WatchListLoaded(<Watch>[testWatch]));
+    when(mockWatchListCubit.state).thenReturn(WatchListLoaded(<Watch>[testWatch]));
 
     final keyWatchCardFinder = find.byKey(Key(testWatch.refId.toString()));
 

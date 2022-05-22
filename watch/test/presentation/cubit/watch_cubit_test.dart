@@ -23,16 +23,14 @@ import 'watch_cubit_test.mocks.dart';
 ])
 void main() {
   late WatchCubit watchCubit;
-  late MockGetWatchlist mockGetWatchlist;
   late MockGetWatchListStatus mockGetWatchListStatus;
   late MockSaveWatchlist mockSaveWatchlist;
   late MockRemoveWatchlist mockRemoveWatchlist;
   setUp(() {
-    mockGetWatchlist = MockGetWatchlist();
     mockGetWatchListStatus = MockGetWatchListStatus();
     mockSaveWatchlist = MockSaveWatchlist();
     mockRemoveWatchlist = MockRemoveWatchlist();
-    watchCubit = WatchCubit(mockGetWatchlist, mockSaveWatchlist, mockGetWatchListStatus, mockRemoveWatchlist);
+    watchCubit = WatchCubit( mockSaveWatchlist, mockGetWatchListStatus, mockRemoveWatchlist);
 
   });
   test('initial state should be initial state', () {
@@ -41,39 +39,6 @@ void main() {
 
   const int id = 1;
 
-  blocTest<WatchCubit, WatchState>(
-    'Should emit [Loading, Error] when get watch list is unsuccessful',
-    build: () {
-      when(mockGetWatchlist.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
-      return watchCubit;
-    },
-    act: (cubit) => cubit.fetchWatchlist(),
-    expect: () => [
-      WatchLoading(),
-      WatchError('Server Failure'),
-    ],
-    verify: (bloc) {
-      verify(mockGetWatchlist.execute());
-    },
-  );
-
-  blocTest<WatchCubit, WatchState>(
-    'Should emit [Loading, Loaded] when get watch list is successful',
-    build: () {
-      when(mockGetWatchlist.execute())
-          .thenAnswer((_) async => Right(testWatchList));
-      return watchCubit;
-    },
-    act: (cubit) => cubit.fetchWatchlist(),
-    expect: () => [
-      WatchLoading(),
-      WatchListLoaded(testWatchList),
-    ],
-    verify: (bloc) {
-      verify(mockGetWatchlist.execute());
-    },
-  );
   blocTest<WatchCubit, WatchState>(
     'Should emit [ Loaded] when isAddedToWatchlist type Movie is successful',
     build: () {
