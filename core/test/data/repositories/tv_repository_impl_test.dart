@@ -50,6 +50,18 @@ void main() {
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
+    test(
+        'should return SLLFailure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getNowPlayingOnTv())
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getNowPlayingOnTv();
+          // assert
+          expect(
+              result, Left(SSLFailure('CERTIFICATE_VERIFY_FAILED')));
+        });
   });
 
   group("get popular on tv", () {
@@ -86,6 +98,19 @@ void main() {
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
+
+    test(
+        'should return SSLFailure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getPopularOnTv())
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getPopularOnTv();
+          // assert
+          expect(
+              result, Left(SSLFailure('CERTIFICATE_VERIFY_FAILED')));
+        });
   });
 
   group("search on tv", () {
@@ -122,6 +147,19 @@ void main() {
       expect(
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
+
+    test(
+        'should return SSLFailure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.searchTv(query))
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.searchOnTv(query);
+          // assert
+          expect(
+              result, Left(SSLFailure('CERTIFICATE_VERIFY_FAILED')));
+        });
   });
 
   group("get detail on tv", () {
@@ -164,6 +202,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getTvDetail(tId))
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getTvDetail(tId);
+          // assert
+          verify(mockTvRemoteDataSource.getTvDetail(tId));
+          expect(result,
+              equals(Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'))));
+        });
   });
 
   group("get recommendations on tv", () {
@@ -209,6 +261,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return ssl failure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getTvRecommendations(tId))
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getTvRecommendations(tId);
+          // assert
+          verify(mockTvRemoteDataSource.getTvRecommendations(tId));
+          expect(result,
+              equals(Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'))));
+        });
   });
   group('get episodes by season', () {
     const tId = 1;
@@ -250,6 +316,20 @@ void main() {
       expect(result,
           equals(Left(ConnectionFailure('Failed to connect to the network'))));
     });
+
+    test(
+        'should return SSLfailure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getTvEpisodeBySeason(tId, tIdSeason))
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getTvEpisodeBySeason(tId, tIdSeason);
+          // assert
+          verify(mockTvRemoteDataSource.getTvEpisodeBySeason(tId, tIdSeason));
+          expect(result,
+              equals(Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'))));
+        });
   });
 
   group("get top rated on tv", () {
@@ -284,6 +364,19 @@ void main() {
           // assert
           expect(
               result, Left(ConnectionFailure('Failed to connect to the network')));
+        });
+
+    test(
+        'should return SSLFailure when ssl is invalid',
+            () async {
+          // arrange
+          when(mockTvRemoteDataSource.getTvTopRated())
+              .thenThrow(const TlsException('CERTIFICATE_VERIFY_FAILED'));
+          // act
+          final result = await repository.getTopRatedOnTv();
+          // assert
+          expect(
+              result, Left(SSLFailure('CERTIFICATE_VERIFY_FAILED')));
         });
   });
 
