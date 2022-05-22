@@ -53,6 +53,7 @@ import 'package:watch/domain/remove_watchlist.dart';
 import 'package:watch/domain/save_watchlist.dart';
 import 'package:watch/presentation/cubic/watch/watch_cubit.dart';
 import 'package:watch/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:watch/presentation/cubic/watch_list/watch_list_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -64,7 +65,7 @@ void init() {
       () => MovieRecommendationCubit(getMovieRecommendations: locator()));
 
   locator.registerFactory(
-      () => WatchCubit(locator(), locator(), locator(), locator()));
+      () => WatchCubit(locator(), locator(), locator()));
 
   locator.registerFactory(() => PopularMovieCubit(locator()));
 
@@ -82,7 +83,7 @@ void init() {
 
   locator.registerFactory(() => TvSeasonCubit(locator()));
   locator.registerFactory(() => TvRecommendationCubit(locator()));
-
+  locator.registerFactory(() => WatchListCubit(locator()));
   // provider
   locator.registerFactory(
     () => MovieListNotifier(

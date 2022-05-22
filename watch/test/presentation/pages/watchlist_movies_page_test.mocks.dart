@@ -2,19 +2,15 @@
 // in watch/test/presentation/pages/watchlist_movies_page_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i8;
+import 'dart:async' as _i5;
 
-import 'package:core/core.dart' as _i11;
-import 'package:core/domain/entities/movie_detail.dart' as _i9;
-import 'package:core/domain/entities/tv_detail.dart' as _i10;
-import 'package:flutter_bloc/flutter_bloc.dart' as _i12;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:watch/domain/get_watchlist.dart' as _i2;
-import 'package:watch/domain/get_watchlist_status.dart' as _i4;
-import 'package:watch/domain/remove_watchlist.dart' as _i5;
-import 'package:watch/domain/save_watchlist.dart' as _i3;
-import 'package:watch/presentation/cubic/watch/watch_cubit.dart' as _i7;
-import 'package:watch/presentation/cubic/watch/watch_state.dart' as _i6;
+import 'package:watch/presentation/cubic/watch_list/watch_list_cubit.dart'
+    as _i4;
+import 'package:watch/presentation/cubic/watch_list/watch_list_state.dart'
+    as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -28,20 +24,13 @@ import 'package:watch/presentation/cubic/watch/watch_state.dart' as _i6;
 
 class _FakeGetWatchlist_0 extends _i1.Fake implements _i2.GetWatchlist {}
 
-class _FakeSaveWatchlist_1 extends _i1.Fake implements _i3.SaveWatchlist {}
+class _FakeWatchListState_1 extends _i1.Fake implements _i3.WatchListState {}
 
-class _FakeGetWatchListStatus_2 extends _i1.Fake
-    implements _i4.GetWatchListStatus {}
-
-class _FakeRemoveWatchlist_3 extends _i1.Fake implements _i5.RemoveWatchlist {}
-
-class _FakeWatchState_4 extends _i1.Fake implements _i6.WatchState {}
-
-/// A class which mocks [WatchCubit].
+/// A class which mocks [WatchListCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWatchCubit extends _i1.Mock implements _i7.WatchCubit {
-  MockWatchCubit() {
+class MockWatchListCubit extends _i1.Mock implements _i4.WatchListCubit {
+  MockWatchListCubit() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -50,65 +39,28 @@ class MockWatchCubit extends _i1.Mock implements _i7.WatchCubit {
       (super.noSuchMethod(Invocation.getter(#getWatchlist),
           returnValue: _FakeGetWatchlist_0()) as _i2.GetWatchlist);
   @override
-  _i3.SaveWatchlist get saveWatchlist =>
-      (super.noSuchMethod(Invocation.getter(#saveWatchlist),
-          returnValue: _FakeSaveWatchlist_1()) as _i3.SaveWatchlist);
+  _i3.WatchListState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _FakeWatchListState_1()) as _i3.WatchListState);
   @override
-  _i4.GetWatchListStatus get getWatchListStatus =>
-      (super.noSuchMethod(Invocation.getter(#getWatchListStatus),
-          returnValue: _FakeGetWatchListStatus_2()) as _i4.GetWatchListStatus);
-  @override
-  _i5.RemoveWatchlist get removeWatchlist =>
-      (super.noSuchMethod(Invocation.getter(#removeWatchlist),
-          returnValue: _FakeRemoveWatchlist_3()) as _i5.RemoveWatchlist);
-  @override
-  _i6.WatchState get state => (super.noSuchMethod(Invocation.getter(#state),
-      returnValue: _FakeWatchState_4()) as _i6.WatchState);
-  @override
-  _i8.Stream<_i6.WatchState> get stream =>
+  _i5.Stream<_i3.WatchListState> get stream =>
       (super.noSuchMethod(Invocation.getter(#stream),
-              returnValue: Stream<_i6.WatchState>.empty())
-          as _i8.Stream<_i6.WatchState>);
+              returnValue: Stream<_i3.WatchListState>.empty())
+          as _i5.Stream<_i3.WatchListState>);
   @override
   bool get isClosed =>
       (super.noSuchMethod(Invocation.getter(#isClosed), returnValue: false)
           as bool);
   @override
-  _i8.Future<void> fetchWatchlist() =>
+  _i5.Future<void> fetchWatchlist() =>
       (super.noSuchMethod(Invocation.method(#fetchWatchlist, []),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
   @override
-  _i8.Future<void> addWatchlistMovie(_i9.MovieDetail? movie) =>
-      (super.noSuchMethod(Invocation.method(#addWatchlistMovie, [movie]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
-  @override
-  _i8.Future<void> addWatchlistTv(_i10.TvDetail? tvDetail) =>
-      (super.noSuchMethod(Invocation.method(#addWatchlistTv, [tvDetail]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
-  @override
-  _i8.Future<void> removeWatchlistMovie(_i9.MovieDetail? movie) =>
-      (super.noSuchMethod(Invocation.method(#removeWatchlistMovie, [movie]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
-  @override
-  _i8.Future<void> removeWatchlistTv(_i10.TvDetail? tvDetail) =>
-      (super.noSuchMethod(Invocation.method(#removeWatchlistTv, [tvDetail]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
-  @override
-  _i8.Future<void> isAddedToWatchlist(int? id, _i11.Type? type) =>
-      (super.noSuchMethod(Invocation.method(#isAddedToWatchlist, [id, type]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
-  @override
-  void emit(_i6.WatchState? state) =>
+  void emit(_i3.WatchListState? state) =>
       super.noSuchMethod(Invocation.method(#emit, [state]),
           returnValueForMissingStub: null);
   @override
-  void onChange(_i12.Change<_i6.WatchState>? change) =>
+  void onChange(_i6.Change<_i3.WatchListState>? change) =>
       super.noSuchMethod(Invocation.method(#onChange, [change]),
           returnValueForMissingStub: null);
   @override
@@ -120,7 +72,7 @@ class MockWatchCubit extends _i1.Mock implements _i7.WatchCubit {
       super.noSuchMethod(Invocation.method(#onError, [error, stackTrace]),
           returnValueForMissingStub: null);
   @override
-  _i8.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
+  _i5.Future<void> close() => (super.noSuchMethod(Invocation.method(#close, []),
       returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
+      returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>);
 }

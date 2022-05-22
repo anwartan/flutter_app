@@ -10,28 +10,14 @@ import 'package:watch/domain/save_watchlist.dart';
 import 'watch_state.dart';
 
 class WatchCubit extends Cubit<WatchState> {
-  final GetWatchlist getWatchlist;
+
   final SaveWatchlist saveWatchlist;
   final GetWatchListStatus getWatchListStatus;
   final RemoveWatchlist removeWatchlist;
 
-  WatchCubit(this.getWatchlist, this.saveWatchlist, this.getWatchListStatus,
+  WatchCubit( this.saveWatchlist, this.getWatchListStatus,
       this.removeWatchlist)
       : super(WatchInitialState());
-
-  Future<void> fetchWatchlist() async {
-    emit(WatchLoading());
-    final result = await getWatchlist.execute();
-    result.fold(
-      (failure) {
-        emit(WatchError(failure.message));
-      },
-      (watchData) {
-        emit(WatchListLoaded(watchData.map((e) => e).toList()));
-      },
-    );
-  }
-
 
 
   Future<void> addWatchlistMovie(MovieDetail movie) async {
