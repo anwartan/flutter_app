@@ -1,5 +1,5 @@
 # a199-flutter-expert-project
-![Alt text](http://full/path/to/img.jpg "Optional title")
+![Alt text]([https://github.com/anwartan/flutter_app/blob/master/screenshot/cover.png] "cover")
 
 [![Codemagic build status](https://api.codemagic.io/apps/6283a1f3290c45144faa9dc6/6283a1f3290c45144faa9dc5/status_badge.svg)](https://codemagic.io/apps/6283a1f3290c45144faa9dc6/6283a1f3290c45144faa9dc5/latest_build)
 
