@@ -1,11 +1,18 @@
+import 'package:auth/domain/get_current_user.dart';
+import 'package:auth/domain/login_user.dart';
+import 'package:auth/domain/logout_user.dart';
+import 'package:auth/presentation/cubit/auth/auth_cubit.dart';
 import 'package:core/core.dart';
+import 'package:core/data/datasources/auth_data_source.dart';
 import 'package:core/data/datasources/db/database_helper.dart';
 import 'package:core/data/datasources/movie_remote_data_source.dart';
 import 'package:core/data/datasources/tv_remote_data_source.dart';
 import 'package:core/data/datasources/watch_local_data_source.dart';
+import 'package:core/data/repositories/auth_repository_impl.dart';
 import 'package:core/data/repositories/movie_repository_impl.dart';
 import 'package:core/data/repositories/tv_repository_impl.dart';
 import 'package:core/data/repositories/watch_repository_impl.dart';
+import 'package:core/domain/repositories/auth_repository.dart';
 import 'package:core/domain/repositories/movie_repository.dart';
 import 'package:core/domain/repositories/tv_repository.dart';
 import 'package:core/domain/repositories/watch_repository.dart';
@@ -83,6 +90,9 @@ void init() {
   locator.registerFactory(() => TvSeasonCubit(locator()));
   locator.registerFactory(() => TvRecommendationCubit(locator()));
   locator.registerFactory(() => WatchListCubit(locator()));
+
+  locator.registerFactory(() => AuthCubit(loginUser: locator(), logoutUser: locator(),getCurrentUser: locator()));
+
   // provider
   locator.registerFactory(
     () => MovieListNotifier(
@@ -135,6 +145,7 @@ void init() {
       removeWatchlist: locator()));
   locator.registerFactory(() => TvSearchNotifier(searchOnTv: locator()));
   locator.registerFactory(() => TopRatedTvNotifier(getTopRatedOnTv: locator()));
+
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
@@ -154,6 +165,11 @@ void init() {
   locator.registerLazySingleton(() => GetEpisodeTv(locator()));
   locator.registerLazySingleton(() => SearchOnTv(locator()));
   locator.registerLazySingleton(() => GetTopRatedOnTv(locator()));
+
+  locator.registerLazySingleton(() => LoginUser(locator()));
+  locator.registerLazySingleton(() => GetCurrentUser(locator()));
+  locator.registerLazySingleton(() => LogoutUser(locator()));
+
   // repository
   locator.registerLazySingleton<MovieRepository>(
     () => MovieRepositoryImpl(
@@ -166,6 +182,8 @@ void init() {
   locator.registerLazySingleton<WatchRepository>(
       () => WatchRepositoryImpl(localDataSource: locator()));
 
+  locator.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(authDataSource: locator()));
+
   // data sources
   locator.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: locator()));
@@ -175,9 +193,13 @@ void init() {
       () => TvRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<WatchLocalDataSource>(
       () => WatchLocalDataSourceImpl(databaseHelper: locator()));
+  locator.registerLazySingleton<AuthDataSource>(() => AuthDataSourceImpl(customSharedPreferences: locator()));
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
   locator.registerLazySingleton<CustomIOClient>(() => CustomIOClient());
+
+  // sharedpreferences
+  locator.registerLazySingleton<CustomSharedPreferences>(() => CustomSharedPreferences());
 }
