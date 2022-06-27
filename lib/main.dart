@@ -1,4 +1,8 @@
 import 'package:about/about_page.dart';
+import 'package:auth/presentation/cubit/auth/auth_cubit.dart';
+import 'package:auth/presentation/pages/login_page.dart';
+import 'package:auth/presentation/pages/register_page.dart';
+import 'package:auth/presentation/pages/splash_page.dart';
 import 'package:core/core.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +34,6 @@ import 'package:tv/presentation/cubit/tv_recommendation/tv_recommendation_cubit.
 import 'package:tv/presentation/cubit/tv_season/tv_season_cubit.dart';
 import 'package:tv/presentation/pages/on_air_tv_page.dart';
 import 'package:tv/presentation/pages/popular_tv_page.dart';
-import 'package:tv/presentation/pages/top_rated_tv_page.dart';
 import 'package:tv/presentation/pages/tv_detail_page.dart';
 import 'package:tv/presentation/pages/tv_series_page.dart';
 import 'package:tv/presentation/provider/on_air_tv_notifier.dart';
@@ -94,7 +97,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<TvDetailCubit>()),
         BlocProvider(create: (_) => di.locator<TvSeasonCubit>()),
         BlocProvider(create: (_) => di.locator<TvRecommendationCubit>()),
-        BlocProvider(create: (_) => di.locator<WatchListCubit>())
+        BlocProvider(create: (_) => di.locator<WatchListCubit>()),
+        BlocProvider(create: (_) => di.locator<AuthCubit>())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -104,11 +108,12 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
         ),
-        home: HomeMoviePage(),
+        home: SplashPage(),
+
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case '/home':
+            case HOME_ROUTE:
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
             case POPULAR_MOVIE_ROUTE:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
@@ -139,8 +144,13 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
             case ABOUT_ROUTE:
               return MaterialPageRoute(builder: (_) => AboutPage());
-            case TOP_RATED_TV_ROUTE:
-              return MaterialPageRoute(builder: (_) => TopRatedTvPage());
+            case LOGIN_ROUTE:
+              return MaterialPageRoute(builder: (_) => LoginPage
+                ());
+            case REGISTER_ROUTE:
+              return MaterialPageRoute(builder: (_) => RegisterPage());
+            case SPLASH_ROUTE:
+              return MaterialPageRoute(builder: (_) => SplashPage());
             default:
               return MaterialPageRoute(builder: (_) {
                 return Scaffold(
